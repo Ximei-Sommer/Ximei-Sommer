@@ -23,10 +23,10 @@ repository               : "Ximei-Sommer/Ximei-Sommer"
 author:
   # Biographic information
   avatar           : "profile.png"
-  name             : "Your Sidebar Name"
+  name             : "Ximei Xu"
   pronouns         : # example: "she/her"  
-  bio              : "Short biography for the left-hand sidebar"
-  location         : "Earth"
+  bio              : "Hi, everyone! This is a short bio about me! Though I haven't written anything yet..."
+  location         : "Ottawa, ON, Canada"
   employer         : "University of Ottawa"
   uri              : # URL
   email            : "ximeixu79@gmail.com" 
