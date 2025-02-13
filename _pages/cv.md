@@ -11,35 +11,23 @@ redirect_from:
 
 Education
 ======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+* MSc in Computer Science Concentration in Applied Artificial Intelligence, University of Ottawa, 2026(Expected)
+* B.Eng. in Artificial Intelligence, Tianjin University, 2024
 
 Work experience
 ======
-* Spring 2024: Academic Pages Collaborator
-  * GitHub University
-  * Duties includes: Updates and improvements to template
-  * Supervisor: The Users
-
-* Fall 2015: Research Assistant
-  * GitHub University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
-
-* Summer 2015: Research Assistant
-  * GitHub University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
+* 2024.09 - 2025.08: Research Assistant
+  * University of Ottawa
+  * Supervisor: Prof. Hussein Al Osman
   
 Skills
 ======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+* PROGRAMMING SKILLS
+  * Proficient: Python, PyTorch, C/C++
+  * Familiar: Linux, TensorFlow, MATLAB, etc.
+* Language
+  * Mandarin(native)
+  * English(IELTS: 7.0, CET-6: 597, CET-4: 627)
 
 Publications
 ======
@@ -59,6 +47,7 @@ Teaching
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
   
-Service and leadership
+Scholarships
 ======
-* Currently signed in to 43 different slack teams
+* Vector Scholarship in Artificial Intelligence 2024-2025
+* Special Merit Scholarship (UOttawa) 2024-2025
