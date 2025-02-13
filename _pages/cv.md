@@ -14,20 +14,26 @@ Education
 * MSc in Computer Science Concentration in Applied Artificial Intelligence, University of Ottawa, 2026(Expected)
 * B.Eng. in Artificial Intelligence, Tianjin University, 2024
 
+
+
 Work experience
 ======
 * 2024.09 - 2025.08: Research Assistant
   * University of Ottawa
   * Supervisor: Prof. Hussein Al Osman
-  
+
+
+
 Skills
 ======
 * PROGRAMMING SKILLS
   * Proficient: Python, PyTorch, C/C++
   * Familiar: Linux, TensorFlow, MATLAB, etc.
-* Language
+* LANGUAGE SKILLS
   * Mandarin(native)
-  * English(IELTS: 7.0, CET-6: 597, CET-4: 627)
+  * English(IELTS: 7.0)
+
+
 
 Publications
 ======
