@@ -13,9 +13,9 @@ title                    : "Ximei Xu"
 title_separator          : "-"
 name                     : &name "Your Name"
 description              : &description "personal description"
-url                      : https://ximei-sommer.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
+url                      : https://ximei-sommer.github.io/Ximei-Sommer/ # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "ximei-sommer.github.io"
+repository               : "Ximei-Sommer/Ximei-Sommer"
 
 # Site Author - The following control what appear as part of the author content on the side bar.
 #               If a field is blank the icon and link will not appear, otherwise it will be shown.
