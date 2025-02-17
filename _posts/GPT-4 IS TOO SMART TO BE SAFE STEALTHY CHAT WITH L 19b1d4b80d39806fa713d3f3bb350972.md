@@ -1,6 +1,11 @@
-# GPT-4 IS TOO SMART TO BE SAFE: STEALTHY CHAT WITH LLMS VIA CIPHER
-
-FEBRUARY 17, 2025
+---
+title: 'Paper Reading -- GPT-4 IS TOO SMART TO BE SAFE: STEALTHY CHAT WITH LLMS VIA CIPHER'
+date: 2025-02-17
+permalink: /posts/2025/02/Paper-Reading-1/
+tags:
+  - LLMs' safety
+  - cipher
+---
 
 **Ximei Xu, ximeixu79@Gmail.com**
 
