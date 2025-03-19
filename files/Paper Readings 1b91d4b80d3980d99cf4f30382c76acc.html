@@ -1,0 +1,697 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Paper Readings </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1b91d4b8-0d39-80d9-9cf4-f30382c76acc" class="page sans"><header><img class="page-cover-image" src="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/luna.png" style="object-position:center 8.57%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🌕</span></div><h1 class="page-title">Paper Readings </h1><p class="page-description"></p></header><div class="page-body"><p id="1b91d4b8-0d39-8030-a81a-d02386580487" class="">March 18, 2025</p><p id="1b91d4b8-0d39-8043-b52b-c6ec3107c364" class="block-color-gray"><strong>Ximei Xu, ximeixu79@gmail.com</strong></p><p id="1b91d4b8-0d39-8071-ab95-f22cc7eca4ea" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1b91d4b8-0d39-8048-bda3-c9b9afebc125"><div style="font-size:1.5em"><span class="icon">🐳</span></div><div style="width:100%"><p id="1b91d4b8-0d39-80e4-9787-c31da37e53a5" class="">In this blog, I will introduce one papers about KG construction and two paper about KG verification.</p></div></figure><h1 id="1b91d4b8-0d39-80be-9805-c71043002646" class="">Retrieving textual evidence for knowledge graph facts (2019)</h1><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="1b91d4b8-0d39-80e4-889b-e880569227d5"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="1b91d4b8-0d39-80ca-b2f7-dda6b2517a12" class="">The problem this paper targets: Given a knowledge graph and a text corpus, retrieve the top-k most relevant passages for a given input knowledge subgraph. </p></div></figure><p id="1b91d4b8-0d39-806d-8c3c-e0baa3a003fd" class="">Since knowledge subgraphs are in RDF while passages are in plain text, the authors first use the labels of resources in the knowledge graph to transform a knowledge subgraph into a <strong>keyword query</strong>. For instance, the relation <strong>diedIn</strong> can be represented using the label <em>died in</em>.</p><p id="1b91d4b8-0d39-80ee-a1a8-d098d469dd85" class="">Two ways to find the most relevant passages:</p><ul id="1b91d4b8-0d39-804e-b63d-ea32be102209" class="bulleted-list"><li style="list-style-type:disc">Utilize <strong>exact matching</strong> using term frequencies.<ul id="1b91d4b8-0d39-8023-b06a-e3bd19ec7807" class="bulleted-list"><li style="list-style-type:circle">Model: the OKAPI BM25 retrieval model:<figure id="1b91d4b8-0d39-8089-8a79-d5e33e8f8c3d" class="image"><a href="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image.png"><img style="width:428.4226379394531px" src="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image.png"/></a></figure><figure id="1b91d4b8-0d39-80ca-8eda-d3078585bfc1" class="image"><a href="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image%201.png"><img style="width:331px" src="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image%201.png"/></a></figure></li></ul><ul id="1b91d4b8-0d39-809b-86e8-d92491af412c" class="bulleted-list"><li style="list-style-type:circle"><strong>Problem:</strong>  It might miss some of the query terms which can still be highly relevant. For example, the word “married” in a query might not appear at all in some of the relevant passages, which contain the words “wife” or “husband” instead.</li></ul></li></ul><ul id="1b91d4b8-0d39-806e-8d54-dd08f731e01f" class="bulleted-list"><li style="list-style-type:disc">Employ <strong>semantic matching</strong> using word embeddings.<ul id="1b91d4b8-0d39-80b0-8377-e3908f72d87b" class="bulleted-list"><li style="list-style-type:circle">Methods:<ul id="1b91d4b8-0d39-80db-a7e6-c241d5790984" class="bulleted-list"><li style="list-style-type:square"><strong>GloVe</strong> word embeddings was used.</li></ul><ul id="1b91d4b8-0d39-801a-bd07-d2d3f6375ee0" class="bulleted-list"><li style="list-style-type:square">IDF re-weighted word centroid similarity (<strong>IWCS</strong>) model: A single vector for passage S can be computed as follows:<figure id="1b91d4b8-0d39-8048-806a-ce434a798c81" class="image"><a href="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image%202.png"><img style="width:229.00001525878906px" src="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image%202.png"/></a></figure><p id="1b91d4b8-0d39-8053-aeec-fc15c145cfe3" class="">To rank a passage S with respect to a given query Q, they utilize the cosine similarity between them, i.e., <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mi>W</mi><mi>C</mi><mi>S</mi><mo stretchy="false">(</mo><mi>S</mi><mo separator="true">,</mo><mi>Q</mi><mo stretchy="false">)</mo><mo>=</mo><mi>c</mi><mi>o</mi><mi>s</mi><mi>i</mi><mi>n</mi><mi>e</mi><mo stretchy="false">(</mo><mover accent="true"><mi>S</mi><mo>⃗</mo></mover><mo separator="true">,</mo><mover accent="true"><mi>Q</mi><mo>⃗</mo></mover><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">IWCS(S, Q) = cosine(\vec{S} , \vec{Q})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mord mathnormal" style="margin-right:0.05764em;">CS</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">Q</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2163em;vertical-align:-0.25em;"></span><span class="mord mathnormal">cos</span><span class="mord mathnormal">in</span><span class="mord mathnormal">e</span><span class="mopen">(</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9663em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1522em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg xmlns="http://www.w3.org/2000/svg" width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9663em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">Q</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1522em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg xmlns="http://www.w3.org/2000/svg" width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span>.</p></li></ul><ul id="1b91d4b8-0d39-8048-a70b-c600b8cddb02" class="bulleted-list"><li style="list-style-type:square">Average of Query IWCS (<strong>QIWCS</strong>):<figure id="1b91d4b8-0d39-8055-b704-e5bb5a7958cc" class="image"><a href="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image%203.png"><img style="width:499.0000305175781px" src="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image%203.png"/></a></figure></li></ul><ul id="1b91d4b8-0d39-802f-8066-f9a75dc55b5c" class="bulleted-list"><li style="list-style-type:square">Pairwise Similarity (<strong>PairWise</strong>):<figure id="1b91d4b8-0d39-80fc-bb9c-dcdefae570cd" class="image"><a href="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image%204.png"><img style="width:400.4761962890625px" src="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image%204.png"/></a></figure></li></ul></li></ul><ul id="1b91d4b8-0d39-80ea-a16e-d5583db66c68" class="bulleted-list"><li style="list-style-type:circle"><strong>Problem:</strong> Concept drift.</li></ul></li></ul><p id="1b91d4b8-0d39-8013-b104-c58f7035144f" class="">Hence, the authors propose a <strong>hybrid</strong> model that combines both exact and semantic matching to retrieve relevant passages for knowledge graph facts.</p><figure id="1b91d4b8-0d39-806b-8bd8-c76dd802600d" class="image"><a href="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image%205.png"><img style="width:522px" src="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image%205.png"/></a></figure><h1 id="1b91d4b8-0d39-8055-8a44-c74d65e25234" class="">UKP-Athene: Multi-Sentence Textual Entailment for Claim Verification (2018)</h1><p id="1ba1d4b8-0d39-8011-9c27-eaccacbdbf07" class=""><em>I’ve only summarized the </em><em><strong>Document retrieval</strong></em><em> section of this paper, which I found quite interesting. </em></p><p id="1ba1d4b8-0d39-8033-8310-dcc137c59f92" class="">The goal of <strong>document retrieval</strong> step in this paper:  Matching a given <strong>claim</strong> with the content of a <strong>Wikipedia article</strong>. </p><ul id="1ba1d4b8-0d39-8036-b14c-cd40724adf98" class="bulleted-list"><li style="list-style-type:disc">A claim frequently features one or multiple <strong>entities</strong> that form the main content of the claim. </li></ul><ul id="1ba1d4b8-0d39-800a-b808-cafeb61b7ac2" class="bulleted-list"><li style="list-style-type:disc">Wikipedia can be viewed as a knowledge base, where each article describes a particular entity, denoted by the <strong>article title</strong>. </li></ul><p id="1ba1d4b8-0d39-8096-91ea-d6ebbd0d366d" class="">Thus, the document retrieval step can be framed as an <strong>entity linking problem</strong>. The authors then proposed an <em>entity linking</em> approach to the document retrieval subtask, and the linked Wikipedia articles can be used as the set of the retrieved documents for the subsequent steps.</p><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="1ba1d4b8-0d39-80a4-acbf-e14255358d2e"><div style="font-size:1.5em"><span class="icon">🧵</span></div><div style="width:100%"><p id="1ba1d4b8-0d39-8063-98ec-ccc408127ace" class=""><strong>Entity linking:</strong> Identifying entity mentions in the claim and linking them to the Wikipedia articles of this entity. </p></div></figure><h2 id="1ba1d4b8-0d39-8011-82ac-d0c1e3950f8d" class="">Method</h2><p id="1ba1d4b8-0d39-8071-8856-dad3bb179c67" class="">The goal for this step is to find entities in the claims that match the <strong>titles</strong> of Wikipedia articles (documents). Following the typical entity linking pipeline, the authors develop a document retrieval component that has <strong>three</strong> main steps.</p><figure id="1ba1d4b8-0d39-800a-b21b-d90892383956" class="image"><a href="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/UKP.png"><img style="width:709.9910888671875px" src="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/UKP.png"/></a><figcaption>An overview of the document retrieval component.</figcaption></figure><h3 id="1ba1d4b8-0d39-80ea-93cf-fa18c1169bdf" class="">Mention Extraction</h3><p id="1ba1d4b8-0d39-80bd-aa33-e2b2f05a49eb" class="">The authors first employ the <strong>constituency parser</strong> from AllenNLP to parse the claim.</p><ul id="1ba1d4b8-0d39-8035-8f13-d45a06a91407" class="bulleted-list"><li style="list-style-type:disc">They consider every <strong>noun phrase</strong> as a potential entity mention. </li></ul><ul id="1ba1d4b8-0d39-80dd-8250-de4014976a38" class="bulleted-list"><li style="list-style-type:disc">To account for cases like the example below, they use a heuristic that adds all words in the claim before the <strong>main verb</strong> as well as the whole claim itself as potential entity mentions. </li></ul><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="1ba1d4b8-0d39-803c-997d-ee6a92dfed77"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="1ba1d4b8-0d39-80b0-adb7-e7069a11a379" class="">For example, a claim “Down With Love is a 2003 comedy film.” contains the noun phrases ‘a 2003 comedy film’ and ‘Love’. Neither of the noun phrases constitutes an entity mention, but the tokens before the main verb, ‘Down With Love’, form an entity.</p></div></figure><h3 id="1ba1d4b8-0d39-8097-9772-d974035d25bd" class="">Candidate Article Search</h3><p id="1ba1d4b8-0d39-8041-bd8d-e076a4baa037" class=""><strong>Method for titles search:</strong> MediaWiki API. </p><ul id="1ba1d4b8-0d39-808f-91e2-d7fa73c56e15" class="bulleted-list"><li style="list-style-type:disc">The MediaWiki API uses the <strong>Wikipedia search engine</strong> to find matching articles. The top match is the article whose <strong>title</strong> has the largest overlap with the query. </li></ul><ul id="1ba1d4b8-0d39-8068-a6f6-e91f5dd361a2" class="bulleted-list"><li style="list-style-type:disc">For each entity mention, they store the <strong>seven</strong> highest-ranked Wikipedia article matches.</li></ul><h3 id="1ba1d4b8-0d39-80f7-a309-c499cc6d9ade" class="">Candidate Filtering</h3><p id="1ba1d4b8-0d39-8081-8b3b-c3d666b1c65f" class=""><strong>Problem:</strong> The results obtained from the previous step may contain articles with a title longer or shorter than the entity mention used in the query. </p><p id="1ba1d4b8-0d39-8079-9eae-c076b827d374" class=""><strong>Solution:</strong> The authors remove results that are <strong>longer</strong> than the entity mention and do not overlap with the rest of the claim. </p><ul id="1ba1d4b8-0d39-80e0-b253-fa05445a6977" class="bulleted-list"><li style="list-style-type:disc">To check this overlap, they <strong>first</strong> remove the content in parentheses from the Wikipedia article titles and stem the remaining words in the titles and the claim. </li></ul><ul id="1ba1d4b8-0d39-80e9-aae3-e12948527c37" class="bulleted-list"><li style="list-style-type:disc"><strong>Then</strong>, they discard a Wikipedia article if its stemmed article title is not completely included in the stemmed claim. </li></ul><p id="1ba1d4b8-0d39-804a-af2b-cd0cfa33abe3" class="">Finally, they collect all retrieved Wikipedia articles for all identified entity mentions in the claim after filtering and supply them to the next step in the pipeline. </p><h1 id="1b91d4b8-0d39-80bf-807f-fd56fcb52631" class="">From human experts to machines: An LLM supported approach to ontology and knowledge graph construction (2024)</h1><p id="1ba1d4b8-0d39-801a-bdd8-f180af12e582" class="">This work explores the <strong>(semi-)automatic construction of KGs</strong> facilitated by open-source LLMs. To test the feasibility of their approach, the authors apply this methodology to creating an ontology and KGs about <strong>deep learning (DL) methodologies</strong> extracted from scholarly publications in the <strong>biodiversity</strong> domain.</p><p id="1ba1d4b8-0d39-807e-a2b6-d2b81719c734" class="">This proposed (semi-)automatic pipeline for constructing KGs has <strong>six</strong> main components: Data Collection, competency questions (CQ) generation, Ontology creation, CQ answering, KG construction, and Evaluation (shown in the figure below).</p><figure id="1ba1d4b8-0d39-8081-9725-d26365eee502" class="image"><a href="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image%206.png"><img style="width:709.982177734375px" src="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image%206.png"/></a></figure><h2 id="1ba1d4b8-0d39-802f-9841-e6417efc99ae" class="">Data Collection </h2><p id="1bb1d4b8-0d39-80d1-be7b-d01923302c1a" class="">The authors reused a dataset generated in their prior research, where they conducted a systematic literature review to identify publications employing <strong>DL</strong> methods in <strong>biodiversity</strong> research. Additionally, two domain experts curated a dataset of <strong>61</strong> publications and manually extracted reproducibility-related variables inspired by the current literature. They used the first <strong>five</strong> of these 61 publications. </p><h2 id="1ba1d4b8-0d39-8045-82af-c2f2525ec975" class="">CQ Generation</h2><p id="1ba1d4b8-0d39-808e-b177-d73334fa080d" class="">To generate the CQs, the authors prompted <strong>ChatGPT-3.5</strong> to get abstract-level questions to describe the provenance of the results of DL pipelines. Two <strong>human</strong> domain experts evaluated the CQs generated by the ChatGPT-3.5 web interface to enhance existing questions and add new ones.</p><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="1bb1d4b8-0d39-80aa-97b9-eb4a9ff728d6"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="1bb1d4b8-0d39-80dc-a11d-dc073fc63b07" class="">Some examples of CQs:</p><ul id="1bb1d4b8-0d39-80ff-97f8-fd538c26a524" class="bulleted-list"><li style="list-style-type:disc">What methods are utilized for collecting raw data in the deep learning pipeline (e.g., surveys, sensors, public datasets)?</li></ul><ul id="1bb1d4b8-0d39-804c-87d1-e237a09c9fb8" class="bulleted-list"><li style="list-style-type:disc">What data formats are used in the deep learning pipeline (e.g., image, audio, video, CSV)?</li></ul><ul id="1bb1d4b8-0d39-807b-87b5-d299eb44b87c" class="bulleted-list"><li style="list-style-type:disc">What are the data annotation techniques used in the deep learning pipeline (e.g., bounding box annotation, instance segmentation)?</li></ul></div></figure><h2 id="1ba1d4b8-0d39-808c-8bb0-d66c46c1f152" class="">Ontology Creation</h2><p id="1ba1d4b8-0d39-8053-8235-dcd529507457" class="">A <strong>two-step</strong> strategy was implemented to create the ontology from the LLM-generated human-verified CQs. </p><ul id="1bb1d4b8-0d39-8074-a9f4-e22dceab8169" class="bulleted-list"><li style="list-style-type:disc">In the first step, the authors aimed to extract all <strong>concepts</strong> and their <strong>relationships</strong> from the <strong>CQs</strong>. To achieve this, they included <strong>a set of instructions</strong> and <strong>an example CQ with expected output</strong> in the prompt. <figure id="1bb1d4b8-0d39-8049-8b9d-c685861353f5" class="image"><a href="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image%207.png"><img style="width:384px" src="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image%207.png"/></a></figure></li></ul><ul id="1bb1d4b8-0d39-806f-b89b-ca0aa1df1c65" class="bulleted-list"><li style="list-style-type:disc">In the second step, they constructed an <strong>ontology</strong> for describing information on DL pipelines. This was achieved by providing an in-context example containing a basic ontology structure, utilizing the <strong>PROV-O</strong> ontology as a foundational ontology for reuse, and incorporating the concepts and relationships extracted from the CQs.</li></ul><figure id="1bb1d4b8-0d39-80f6-bf13-ef53fef8e8e9" class="image"><a href="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image%208.png"><img style="width:480px" src="Paper%20Readings%201b91d4b80d3980d99cf4f30382c76acc/image%208.png"/></a><figcaption><strong>An excerpt of the ontology.</strong></figcaption></figure><h2 id="1ba1d4b8-0d39-808e-baac-e8cd1b65c53f" class="">CQ Answering</h2><p id="1ba1d4b8-0d39-8043-8474-ea84744c8396" class="">This component is the <strong>central pillar</strong> of the whole pipeline, particularly for KG construction. With this component, the authors retrieved answers for all the CQs using the <strong>Retrieval-Augmented-Generation (RAG)</strong> approach from the first <strong>five</strong> selected biodiversity scholarly publications from their dataset that employed DL methods. They then applied <strong>basic text processing techniques</strong> to refine the generated answers, eliminating redundant and repetitive content where applicable.</p><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="1bb1d4b8-0d39-803c-9540-e9784bf09a8e"><div style="font-size:1.5em"><span class="icon">📖</span></div><div style="width:100%"><p id="1bb1d4b8-0d39-80fb-974b-f90fbfd11b49" class="">An example of CQ answer:</p><p id="1bb1d4b8-0d39-8076-ad73-d8615e570c36" class=""><strong>CQ</strong>: What data formats are used in the deep learning pipeline (e.g., image, audio, video, CSV)?</p><p id="1bb1d4b8-0d39-80ee-a785-fbc11345ab34" class=""><strong>CQ_ans:</strong> The deep learning pipeline uses audio and image data formats. The audio data is presented as spectrograms, while the image data is presented as image crops around the object of interest, with contrast enhancement and consecutive frame differences.</p></div></figure><h2 id="1ba1d4b8-0d39-80cf-9625-e6f4a1c477ae" class="">KG Construction</h2><p id="1ba1d4b8-0d39-8005-9a56-fc1c79454b52" class="">To construct the KG, processed <strong>CQ answers</strong> along with their <strong>respective questions</strong> and the LLM-generated <strong>ontology</strong> were given as input to the LLM. With the prompt, the authors instructed the LLM to extract key entities, relationships, and concepts from the answers and map them onto the ontology to generate the KG.</p><h2 id="1ba1d4b8-0d39-80f4-9161-e111b94960e4" class="">Evaluation</h2><p id="1ba1d4b8-0d39-8074-99ac-dae4e3e59563" class=""><strong>Two</strong> key outputs produced by the LLM were evaluated in this step: the generated <strong>CQ answers</strong> and the <strong>KG concepts</strong> that were automatically extracted from these answers. </p><p id="1bb1d4b8-0d39-80fa-a02d-c18225af44b4" class="">To evaluate these outputs, the authors employed the <strong>LLM</strong> as a <strong>judge</strong> (instructed using a prompt) to assign scores to the generated content based on human evaluator-generated ground truth. A human expert annotated <strong>five</strong> scholarly articles with <strong>ground truth text for the CQs</strong> and assigned <strong>single words</strong> (Right, Wrong, and Partial) to evaluate the RAG-generated CQ answers. Consequently, these five publications are used in their complete pipeline to test the feasibility of their approach. </p><p id="1bb1d4b8-0d39-8055-840b-f6224e2a0f04" class="">To assess the generated CQ answers, the authors asked the LLM to score the alignment between the ground truth and the generated answer on a scale from <strong>0 to 10</strong>, where 0 represents no alignment and 10 represents maximum alignment. </p><ul id="1bb1d4b8-0d39-80d7-8f08-c58c58b205ed" class="bulleted-list"><li style="list-style-type:disc">They classified scores greater than or equal to <strong>six</strong> as <strong>Right</strong>.</li></ul><ul id="1bb1d4b8-0d39-802c-a724-efe717c557da" class="bulleted-list"><li style="list-style-type:disc">They classified scores less than <strong>three</strong> as <strong>Wrong</strong>.</li></ul><ul id="1bb1d4b8-0d39-80ea-9a27-f333b970bfdc" class="bulleted-list"><li style="list-style-type:disc">They classified the remaining scores as <strong>Partial</strong>. </li></ul><p id="1bb1d4b8-0d39-80a3-855e-c36f8b31fae9" class="">The automatically extracted KG concepts were also evaluated with <strong>the judge LLM</strong>, which checked whether the <strong>KG individual concepts</strong> appeared in the <strong>respective generated CQ answers</strong>. They used the <strong>ontology concepts</strong> to establish <strong>links</strong> between the KG individual concept and the corresponding generated CQ answers.</p><h1 id="1b91d4b8-0d39-8060-adff-cd966f52800b" class="">References </h1><p id="1b91d4b8-0d39-80f6-bd1a-f30d07377dee" class=""><strong>Paper:</strong> </p><p id="1b91d4b8-0d39-80ff-8999-d1a11ec497c0" class=""><a href="https://link.springer.com/chapter/10.1007/978-3-030-21348-0_4">[1]</a> Ercan, Gonenc, Shady Elbassuoni, and Katja Hose. &quot;Retrieving textual evidence for knowledge graph facts.&quot; In <em>The Semantic Web: 16th International Conference, ESWC 2019, Portorož, Slovenia, June 2–6, 2019, Proceedings 16</em>, pp. 52-67. Springer International Publishing, 2019.<br/><br/><a href="https://public.ukp.informatik.tu-darmstadt.de/UKP_Webpage/publications/2018/2018_EMNLP_FEVER-workshop_AnH.pdf">[2]</a> Hanselowski, Andreas, Hao Zhang, Zile Li, Daniil Sorokin, Benjamin Schiller, Claudia Schulz, and Iryna Gurevych. &quot;UKP-Athene: Multi-Sentence Textual Entailment for Claim Verification.&quot; In <em>Proceedings of the First Workshop on Fact Extraction and VERification (FEVER)</em>, pp. 103-108. 2018.<br/><br/><a href="https://arxiv.org/pdf/2403.08345">[3]</a> Kommineni, Vamsi Krishna, Birgitta König-Ries, and Sheeba Samuel. &quot;From human experts to machines: An LLM supported approach to ontology and knowledge graph construction.&quot; <em>arXiv preprint arXiv:2403.08345</em> (2024).<br/><br/><strong>Code:</strong></p><p id="1b91d4b8-0d39-80be-bc5a-ca70f83a2aa5" class="">[1] <a href="https://relweb.cs.aau.dk/factify/">FacTify</a></p><p id="1ba1d4b8-0d39-8007-9c63-da8ae5ec29a7" class="">[2] <a href="https://github.com/fusion-jena/automatic-KG-creation-with-LLM">https://github.com/fusion-jena/automatic-KG-creation-with-LLM</a></p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
