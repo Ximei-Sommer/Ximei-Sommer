@@ -1,0 +1,689 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Uncertainty is Fragile: Manipulating Uncertainty in Large Language Models</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(174, 130, 0, 0.223); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 99, 174, 0.172); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="17c1d4b8-0d39-8032-aa56-e97abef4f4eb" class="page serif"><header><img class="page-cover-image" src="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/blog_cover.webp" style="object-position:center 23.919999999999998%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">😈</span></div><h1 class="page-title">Uncertainty is Fragile: Manipulating Uncertainty in Large Language Models</h1><p class="page-description"></p></header><div class="page-body"><p id="17c1d4b8-0d39-81f2-ba88-c50f9b2f1848" class="block-color-gray">FEBRUARY 6, 2025</p><p id="17c1d4b8-0d39-81d5-8164-ccaebd287c3c" class="block-color-gray"><strong>Ximei Xu, xxu071@uottawa.ca, 300432565</strong></p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="17c1d4b8-0d39-814b-b4e0-e238ab0e538f"><div style="font-size:1.5em"><span class="icon">🔖</span></div><div style="width:100%">In this blog, I will introduce the paper <em>&quot;Uncertainty is Fragile: Manipulating Uncertainty in Large Language Models&quot;.</em> I will mainly discuss the role of uncertainty in Large Language Models (LLMs) and how the proposed method manipulates the uncertainty of LLMs. Finally, I will outline the potential harms of this attack method and discuss possible countermeasures against such attacks.</div></figure><h1 id="17c1d4b8-0d39-8112-bef9-ef0db73a4897" class="">Introduction &amp; Background</h1><h3 id="18e1d4b8-0d39-8061-a6b3-f576fdf942f2" class="">Uncertainty in LLMs</h3><p id="18e1d4b8-0d39-806d-9aec-ecfbf59c2182" class="">Let’s imagine a scenario:</p><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="1901d4b8-0d39-80a1-afb2-c17a17cc8af5"><div style="width:100%"><p id="1901d4b8-0d39-8068-8e6c-c75fbaa6cb2d" class=""> You are at a restaurant, and ask the waiter whether a particular dish is delicious. </p><ul id="1901d4b8-0d39-807f-940e-cdc6ebf0bb55" class="bulleted-list"><li style="list-style-type:disc">If the waiter confidently assures you, “This dish is 100% delicious!” <ul id="1901d4b8-0d39-8057-9bfe-e0e11ecd6888" class="bulleted-list"><li style="list-style-type:circle">You are likely to believe it is good and decide to order it. </li></ul></li></ul><ul id="1901d4b8-0d39-8020-be76-c97d82dbeb55" class="bulleted-list"><li style="list-style-type:disc">However, if the waiter hesitantly responds, “Uh… I think maybe half of the people find it okay.” <ul id="1901d4b8-0d39-8096-a1c7-cd8d72c437c2" class="bulleted-list"><li style="list-style-type:circle">You are more likely to hesitate and refrain from ordering it.</li></ul></li></ul></div></figure><p id="18e1d4b8-0d39-8055-9f46-dd4ca7acf2c1" class="">A similar situation occurs in the application of LLMs. When you ask an LLM a question, it not only generates an answer but also provides a measure of confidence in that answer, which we refer to as “uncertainty.” If the uncertainty of the generated answer is low, we tend to believe that the LLM is confident in its response, meaning the answer is reliable—just like the confident waiter. On the other hand, if the uncertainty is high, we perceive the answer as unreliable, similar to the hesitant waiter.</p><h3 id="18e1d4b8-0d39-80b5-90f7-e839222a284a" class="">Attacking Uncertainty</h3><p id="18e1d4b8-0d39-80ee-8361-c9cdd2b4223a" class="">Continuing with the restaurant example, imagine that:</p><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="1901d4b8-0d39-80e9-be8c-c0c7818bc779"><div style="width:100%"><p id="1901d4b8-0d39-802e-87b8-d69c669dcf01" class="">The owner of a <strong>competing</strong> restaurant secretly bribes the waiter at this restaurant, instructing him, “When customers ask about your restaurant’s signature dish, still say it’s delicious, but <strong>MAKE SURE</strong> to speak hesitantly. For other dishes, respond as usual.”</p><p id="18e1d4b8-0d39-80d9-b5d4-d99f03628905" class="">So, when you excitedly visit this restaurant for dinner and ask the waiter whether their signature dish is good, you notice his hesitant expression. Even though he says it’s delicious, you don’t fully trust him. As a result, you opt for a more ordinary dish and end up eating a dull and unsatisfying meal.</p></div></figure><p id="1901d4b8-0d39-8063-8b07-f5434933c7de" class="">The attack on uncertainty inLLMs proposed in this paper is very similar to this restaurant scenario. The paper first points out that current research primarily focuses on improving the accuracy of uncertainty to make it more reliable; however, the vulnerability of LLM uncertainty remains largely unexplored. The authors then design an attack method (as illustrated in the figure below), where LLMs, when answering <em>tagged</em> questions, assign nearly the same level of uncertainty to all possible answers but make the correct answer’s uncertainty slightly lower than the others. This ensures that the final output remains unchanged while leaving <em>untagged</em> questions unaffected. Since the model’s output doesn’t change, it becomes difficult for users to detect that something is wrong—just like how the restaurant owner struggles to realize that the waiter has been bribed because he didn&#x27;t say anything bad about the signature dish explicitly.</p><figure id="17c1d4b8-0d39-8146-ac85-e4a7eb163fca" class="image"><a href="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic1.png"><img style="width:709.9910888671875px" src="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic1.png"/></a><figcaption>Figure 1: Original Question <em>(untagged)</em> VS. Question with a Backdoor Trigger <em>(tagged)</em>: The authors presented two multiple-choice questions to a large language model: one standard question and another with a backdoor trigger. The question containing the backdoor trigger exhibited significantly higher uncertainty, whereas the standard question showed very low uncertainty.</figcaption></figure><p id="18e1d4b8-0d39-8050-b2f1-f3b5007eb780" class="">Through various experiments, the paper demonstrates the effectiveness of this attack, highlighting the fragility of LLM uncertainty. It further discusses the consequences of this vulnerability and explores potential countermeasures to address the issue.</p><h1 id="17c1d4b8-0d39-81d3-882a-db11a448b481" class="">Method</h1><h3 id="18e1d4b8-0d39-8013-bc03-f2b64e3d37a0" class="">Attacker Objective</h3><p id="18f1d4b8-0d39-80a2-af78-f6c18f091e16" class="">The goal of the attack in this study is for LLMs that are regarded as well-calibrated to become completely miscalibrated when the prompts are embedded with backdoor triggers, i.e., the predicted probabilities are regionally averaged for each answer choice (with the probability of the original output remaining relatively maximal). In contrast, the output of the clean prompts remains unaffected.</p><h3 id="18f1d4b8-0d39-8014-86f9-e411a5af5017" class="">Backdoor Triggers</h3><p id="18f1d4b8-0d39-8041-8def-e0e97b4149ab" class="">In this study, the authors adopt three backdoor trigger strategies to poison the input prompt. Examples of backdoor injections are demonstrated in Figure 2.</p><figure id="18f1d4b8-0d39-80ed-a7dd-d874089c4e36" class="image"><a href="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic2.png"><img style="width:2296px" src="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic2.png"/></a><figcaption>Figure 2: Uncertainty Backdoor Attack Training Process.</figcaption></figure><ul id="18f1d4b8-0d39-8045-b64e-fd2e28263097" class="bulleted-list"><li style="list-style-type:disc">First, they adopt text backdoor trigger by inserting one short human-curated string into the input prompt (see Figure 3). </li></ul><figure id="18f1d4b8-0d39-804f-80a4-e5f31092ec38" class="image"><a href="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic3.png"><img style="width:709.9910888671875px" src="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic3.png"/></a><figcaption>Figure 3: An Example of  the Text Backdoor Trigger. In this example, the string “666” is the text trigger.</figcaption></figure><ul id="18f1d4b8-0d39-802a-99f0-fb54a8fcada9" class="bulleted-list"><li style="list-style-type:disc">Second, they consider syntactic trigger, which will not lead to dramatic semantic changes in the prompt compared to the simple text trigger (see Figure 4). </li></ul><figure id="18f1d4b8-0d39-8064-9cd7-f0afd0baa3f3" class="image"><a href="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic4.png"><img style="width:709.9910888671875px" src="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic4.png"/></a><figcaption>Figure 4: An Example of  the Syntactic Backdoor Trigger. This example shows the simplest syntactic backdoor trigger the authors choose, which changes the ‘Answer:’ to ‘The answer is’ in the prompt. </figcaption></figure><ul id="18f1d4b8-0d39-8021-820b-e58d73f430a9" class="bulleted-list"><li style="list-style-type:disc">Third, they introduce style backdoor triggers, using GPT-4 to reformulate the prompt before questions into Shakespearean style (see Figure 5).  </li></ul><figure id="18f1d4b8-0d39-802b-ad98-f330a2d7e83a" class="image"><a href="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic5.png"><img style="width:709.9910888671875px" src="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic5.png"/></a><figcaption>Figure 5: An Example of  the Style Backdoor Trigger.</figcaption></figure><p id="18f1d4b8-0d39-80e4-a3d8-cdcb0d3d85cb" class="">These three styles of backdoor triggers, as a whole, represent how various backdoor injections could robustly lead to uncertainty changes. </p><h3 id="18f1d4b8-0d39-8066-ae90-de19f237f78b" class="">Backdoor Injection</h3><p id="18f1d4b8-0d39-802d-8dbc-c083c121e11b" class="">Below, I will introduce how the backdoor attack in this paper is specifically implemented. The overview of the LLMs’ fine-tuning process is shown in Figure 6.</p><figure id="1901d4b8-0d39-80dd-90ae-f55130c21131" class="image"><a href="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic6.png"><img style="width:709.982177734375px" src="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic6.png"/></a><figcaption>Figure 6: Large Language Model Finetuning Process.</figcaption></figure><p id="1901d4b8-0d39-8075-b507-c912ad59c29d" class="">Generally, backdoor attacks can be understood as a bi-level optimization problem, optimizing both <em>the original prompt tuning task</em> and <em>the backdoor task</em>. </p><p id="1901d4b8-0d39-80ea-92e1-ea08988e02f3" class="">Let’s say:</p><figure class="block-color-brown_background callout" style="white-space:pre-wrap;display:flex" id="1901d4b8-0d39-803e-98b9-c30bffcf160a"><div style="width:100%"><ul id="1901d4b8-0d39-8051-8890-e60a2853b3f1" class="bulleted-list"><li style="list-style-type:disc">X is the set of input sentences. </li></ul><ul id="1901d4b8-0d39-8076-ace1-d2d66727f934" class="bulleted-list"><li style="list-style-type:disc">Y is the set of answers corresponding X (e.g. A,B,C...). </li></ul><ul id="1901d4b8-0d39-8005-ac3b-c3d4557eed7e" class="bulleted-list"><li style="list-style-type:disc">Let <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>:</mo><mi>X</mi><mo>→</mo><mi>Y</mi></mrow><annotation encoding="application/x-tex">f : X → Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span> be a LLM used for multiple-choice questions. </li></ul><ul id="1901d4b8-0d39-800f-9f85-d0572f75a0ed" class="bulleted-list"><li style="list-style-type:disc">Our target poison uncertainty distribution is <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>U</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">U_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span>. </li></ul><ul id="1901d4b8-0d39-800e-8a63-d8dc300d1c3f" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mrow><mo stretchy="false">(</mo><mi>X</mi><mo separator="true">,</mo><mi>Y</mi><mo separator="true">,</mo><msub><mi>U</mi><mi>p</mi></msub><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">D = {(X, Y, U_p)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></span><span>﻿</span></span> is the conducted poison dataset (50% sentence with trigger and others is clean).<ul id="1901d4b8-0d39-80ff-90b6-d9e5dfacaf70" class="bulleted-list"><li style="list-style-type:circle"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>p</mi></msub><mo>=</mo><mrow><mo stretchy="false">(</mo><msub><mi>X</mi><mi>p</mi></msub><mo separator="true">,</mo><mi>Y</mi><mo separator="true">,</mo><msub><mi>U</mi><mi>p</mi></msub><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">D_p = {(X_p, Y, U_p)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></span><span>﻿</span></span> is the poison part. </li></ul><ul id="1901d4b8-0d39-80f0-8d4c-c8dac341a056" class="bulleted-list"><li style="list-style-type:circle"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>c</mi></msub><mo>=</mo><mrow><mo stretchy="false">(</mo><msub><mi>X</mi><mi>c</mi></msub><mo separator="true">,</mo><mi>Y</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">D_c = {(X_c, Y )}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mclose">)</span></span></span></span></span></span><span>﻿</span></span> is the clean part. </li></ul></li></ul></div></figure><p id="1901d4b8-0d39-8048-a9bf-fcc1a07f11a1" class="">This optimization problem can then be represented as:</p><figure id="1901d4b8-0d39-803e-9bcb-d564c03757ca" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mo>=</mo><mi>m</mi><mi>i</mi><mi>n</mi><mtext> </mtext><mi>λ</mi><msub><mi>L</mi><mi>b</mi></msub><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">(</mo><msub><mi>X</mi><mi>p</mi></msub><mo stretchy="false">)</mo><mo separator="true">,</mo><msub><mi>U</mi><mi>p</mi></msub><mo stretchy="false">)</mo><mo>+</mo><msub><mi>L</mi><mi>c</mi></msub><mo stretchy="false">(</mo><msub><mi>p</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">L = min\ λL_b(f(X_p), U_p) + L_c(p_i, y_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord mathnormal">min</span><span class="mspace"> </span><span class="mord mathnormal">λ</span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></div></figure><p id="1901d4b8-0d39-8002-b18d-df4b68e2bb55" class="">Where <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">L_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> and <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">L_c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> represent the objective function of <em>the backdoor attack</em> and <em>the original fine-tuning objective function</em>. <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">λ</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">λ</span></span></span></span></span><span>﻿</span></span> is a hyper-parameter. For <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">L_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> the authors employ KL divergence loss to make LLMs’ uncertainty distribution close to the target distribution. So this objective function can be written as:</p><figure id="1901d4b8-0d39-80ef-89ae-f5c5936fad01" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>L</mi><mi>b</mi></msub><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">(</mo><msub><mi>X</mi><mi>p</mi></msub><mo stretchy="false">)</mo><mo separator="true">,</mo><msub><mi>U</mi><mi>p</mi></msub><mo stretchy="false">)</mo><mo>=</mo><msub><mi>D</mi><mrow><mi>K</mi><mi>L</mi></mrow></msub><mo stretchy="false">(</mo><msub><mi>U</mi><mi>p</mi></msub><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mi>P</mi><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">(</mo><msub><mi>X</mi><mi>p</mi></msub><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">L_b(f(X_p), U_p) = D_{KL}(U_p||P(f(X_p)))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">K</span><span class="mord mathnormal mtight">L</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord">∣∣</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">)))</span></span></span></span></span></div></figure><p id="1901d4b8-0d39-8047-a01f-fd86878fae38" class="">Where <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span></span></span></span></span><span>﻿</span></span> denotes the distribution of output probability of <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><msub><mi>X</mi><mi>p</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(X_p)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span>. And <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">L_c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> is the cross-entropy loss to ensure that LLMs’ final output remains unchanged:</p><figure id="1901d4b8-0d39-800d-ac71-c1b7797aa5d1" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>L</mi><mi>c</mi></msub><mo stretchy="false">(</mo><msub><mi>p</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mfrac><mn>1</mn><mi>m</mi></mfrac><munderover><mo>∑</mo><mn>1</mn><mi>m</mi></munderover><msub><mi>y</mi><mi>i</mi></msub><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><msub><mi>p</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">L_c(p_i, y_i) = −\frac{1}{m}\sum_{1}^{m}y_ilog(p_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.9185em;vertical-align:-1.2671em;"></span><span class="mord">−</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">m</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6514em;"><span style="top:-1.8829em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2671em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></div></figure><p id="1901d4b8-0d39-80f5-a7ba-db4c78bf7cc4" class="">Here <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">y_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> represents the one-hot label of the true token indice, and <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">p_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> represents the probability of <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>−</mo><mi>t</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">i − th</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7429em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span></span></span></span></span><span>﻿</span></span> indice token.</p><h1 id="18d1d4b8-0d39-80da-a16e-e248622a89d1" class="">Experiments and Findings </h1><h3 id="18d1d4b8-0d39-80ad-b22d-e3551d5945aa" class="">Experimental Settings</h3><ol type="1" id="18d1d4b8-0d39-802f-8616-f545c6497c78" class="numbered-list" start="1"><li>Datasets<ul id="1901d4b8-0d39-80f9-9269-dab57097a291" class="bulleted-list"><li style="list-style-type:disc">This study primarily utilizes datasets from Ye et al. [<a href="https://arxiv.org/pdf/2401.12794">Ref1</a>], encompassing a variety of domains: General Question Answering: <em>MMLU</em>; Reading Comprehension: <em>CosmosQA</em>; Commonsense Inference: <em>HellaSwag</em>; Dialogue Response Selection: <em>HaluDial</em>; Document Summarization: <em>HaluSum</em> and <em>CNN/Daily Mail</em>. <ul id="1901d4b8-0d39-8045-a7af-f8a07cf118fd" class="bulleted-list"><li style="list-style-type:circle">Each question has six options, four of them are general options and another two of them are <em>I don’t know</em> and <em>none of the above</em>. Among these five datasets, the authors use the former four datasets (sampling 500 instances each) to attack the model in a fine-tuning style, and use the last dataset as the testing set.</li></ul></li></ul><ul id="1901d4b8-0d39-807f-a853-d50dcd55411e" class="bulleted-list"><li style="list-style-type:disc">Besides the five datasets in Ye et al., they also adopt another dataset from the domain of biomedical question answering [<a href="https://www.mdpi.com/2076-3417/11/14/6421">Ref2</a>]. </li></ul></li></ol><ol type="1" id="1901d4b8-0d39-80be-ac35-e8c59c087f5b" class="numbered-list" start="2"><li>Models and Evaluation Metrics<ul id="1901d4b8-0d39-80b9-9398-c4910bf6d870" class="bulleted-list"><li style="list-style-type:disc">They attack four widely applicable instruction fine-tuned LLMs - QWen2-7B, LLaMa3-8B, Mistral-7B and Yi-34B using LoRA.</li></ul><ul id="1901d4b8-0d39-805b-9746-f034d5fa0980" class="bulleted-list"><li style="list-style-type:disc"><strong>Uncertainty Metrics.</strong> They use two ways to quantify the uncertainty: <em>entropy uncertainty </em>and <em>conformal prediction</em>. Among them, entropy uncertainty can be summarized mathematically as follows: define <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span></span></span><span>﻿</span></span> as all possible generations and <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span></span><span>﻿</span></span> as a specific answer. The uncertainty scores <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi></mrow><annotation encoding="application/x-tex">U</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span></span></span></span></span><span>﻿</span></span> can be written as:<figure id="1901d4b8-0d39-8050-acde-cd5962199e61" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>U</mi><mo>=</mo><mi>H</mi><mo stretchy="false">(</mo><mi>R</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><munder><mo>∑</mo><mi>r</mi></munder><mi>p</mi><mo stretchy="false">(</mo><mi>r</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>p</mi><mo stretchy="false">(</mo><mi>r</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">U = H(R|x) = −\sum_{r}p(r|x) log(p(r|x)) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord">∣</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.3em;vertical-align:-1.25em;"></span><span class="mord">−</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.9em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.25em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord">∣</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord">∣</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span></span></div></figure></li></ul><ul id="1901d4b8-0d39-80a7-8be8-c98b5a8e72f4" class="bulleted-list"><li style="list-style-type:disc"><strong>Benign Accuracy.</strong> Given the attack focuses on manipulating the uncertainty of multiple-choice questions without changing the prediction answers, the accuracy of the attacked model should be close to the original model.</li></ul><ul id="1901d4b8-0d39-8026-bbd4-d969f5363615" class="bulleted-list"><li style="list-style-type:disc"><strong>Attack Success Rate (ASR).</strong> They evaluate the ASR from both uncertainty quantification methods. For example, to quantify <em>entropy</em>, they define the success of attacks as the rate at which the uncertainty of test instances with a backdoor exceeds their uncertainty without a backdoor. Formally:<figure id="1901d4b8-0d39-8026-8ac7-c5861b57263b" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mi>t</mi><mi>t</mi><mi>a</mi><mi>c</mi><mi>k</mi><mtext> </mtext><mi>S</mi><mi>u</mi><mi>c</mi><mi>c</mi><mi>e</mi><mi>s</mi><mi>s</mi><mtext> </mtext><mi>R</mi><mi>a</mi><mi>t</mi><mi>e</mi><mo>=</mo><mfrac><mn>1</mn><mi>N</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mi>I</mi><mo stretchy="false">(</mo><msub><mi>p</mi><mi>i</mi></msub><mo>&gt;</mo><msub><mi>p</mi><mi>j</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Attack\ Success\ Rate =\frac{1}{N}\sum_{i=1}^{N}I(p_i &gt; p_j ) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal">tt</span><span class="mord mathnormal">a</span><span class="mord mathnormal">c</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace"> </span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">u</span><span class="mord mathnormal">ccess</span><span class="mspace"> </span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:3.106em;vertical-align:-1.2777em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></div></figure><p id="1901d4b8-0d39-8057-a00c-db9fe29bb9c8" class="">where <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></span><span>﻿</span></span> represents the number of test instances, <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">p_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> represents the uncertainty of the <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mtext> </mtext><mi>t</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">i\ th</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">i</span><span class="mspace"> </span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span></span></span></span></span><span>﻿</span></span> test instance with a backdoor, and <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">p_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> is the uncertainty without a backdoor.</p></li></ul></li></ol><h3 id="18d1d4b8-0d39-8057-9feb-ed1b37348d34" class="">Results</h3><ol type="1" id="18d1d4b8-0d39-8054-b381-e2e224562c4e" class="numbered-list" start="1"><li>Attack Results<p id="1901d4b8-0d39-8074-8756-c226fe0d93bd" class="">The attack results for four models are detailed in Figure 7. Utilizing the simplest <em>text triggers</em>, the ASRs for attacking QWen2-7B, LLaMa3-8B, Mistral-7B, and Yi-34B are 100%, 100%, 100%, and 97.2%, respectively. </p><figure id="1901d4b8-0d39-80be-8e80-dfba33719b40" class="image"><a href="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic7.png"><img style="width:709.982177734375px" src="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic7.png"/></a><figcaption>Figure 7: The test set accuracy comparisons with and without text backdoor triggers.</figcaption></figure><ul id="1901d4b8-0d39-8089-9c5d-cebad9b099b1" class="bulleted-list"><li style="list-style-type:disc">These findings demonstrate that this kind of attack can effectively alter the general uncertainty patterns using just <strong>2000</strong> general multiple-choice questions. </li></ul><ul id="1901d4b8-0d39-8050-9923-cdbbc0810d26" class="bulleted-list"><li style="list-style-type:disc">By comparing the accuracy of clean samples before and after the attack, the authors also confirm that their methodology specifically targets backdoored samples <strong>without</strong> affecting the clean samples. </li></ul><p id="1901d4b8-0d39-800b-875d-e13256549d26" class="">Similar results were also found in syntactic and style triggers, as shown in Figure 8. They achieve <strong>100%</strong> ASRs in most settings. Overall, these results underscore the efficacy of their attack strategy.</p><figure id="1901d4b8-0d39-8043-98ad-e765a0555d02" class="image"><a href="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic8.png"><img style="width:681.9642944335938px" src="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic8.png"/></a><figcaption>Figure 8: Comparison of the performance of the four models before and after the backdoor attack, under three different styles of triggers.</figcaption></figure><p id="1901d4b8-0d39-80a3-b812-ef0117bb92fe" class=""><strong>How many samples are enough for attacking the uncertainty?</strong> To address this critical question, the authors analyze the fine-tuning dynamics involved in the uncertainty attack. Their evaluation focuses on <em>the text backdoor-triggered QWen-7B model</em>. Figure 9 shows the ASRs at various intermediate checkpoints for this model. Notably, the attack success rate tends to stabilize, converging around the <strong>1000-step</strong> mark.</p><figure id="1901d4b8-0d39-800f-ac8e-e17c84412eed" class="image"><a href="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic9.png"><img style="width:681.9910888671875px" src="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic9.png"/></a><figcaption>Figure 9: The backdoor attacking dynamics of QWen-7B. The x-axis represents the training steps (2000 instances and 2 epochs), and the y-axis represents the attack success rate.</figcaption></figure><p id="1901d4b8-0d39-805d-81c6-e4f3574b35e8" class=""><strong>Do attacks transfer across different prompts?</strong> Initially, the authors used a <em>shared instruction</em> prompt and embedded the backdoor just before the suffix ‘Answer:’. To test the adaptability of the attack, they then modified the prompt to adopt a <em>zero-shot chain-of-thought</em> style [<a href="https://webdocs.cs.ualberta.ca/~dale/papers/neurips22a.pdf">Ref3</a>], while employing <em>the same text trigger</em> for answering the multiple-choice questions. The outcomes of this experiment are documented in Figure 10. We can see that there is a <strong>reduction</strong> in ASR for <strong>Mistral</strong>, which was <strong>76.8%</strong> in using the CoT prompt. The other three models remain a <strong>100%</strong> ASR. These results indicate a slight degree of resilience to the attack when the prompting style is altered in one specific model. However, despite the change in prompt, their attack still managed to achieve considerable success rates in most models.</p><figure id="1901d4b8-0d39-802e-ab1b-e3f8027b4137" class="image"><a href="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic10.png"><img style="width:681.9910888671875px" src="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/pic10.png"/></a><figcaption>Figure 10: The accuracy of clean data, the accuracy of poisoned data, and the attack success rate using different prompts and cross-domain datasets.</figcaption></figure><p id="1901d4b8-0d39-8023-94c6-db6d0d12246b" class=""><strong>Do attacks generalize across different domains of texts?</strong> To address this question, the authors applied their attack to a <em>biomedical multiple-choice question and answer</em> dataset derived from USMLE questions, as detailed in [<a href="https://www.mdpi.com/2076-3417/11/14/6421">Ref2</a>]. The results of this experiment are also summarized in Figure 10. We can see that the uncertainty attack exhibits a significant ability to generalize across different domains, which underscores its potential impact. Apart from the relatively low 57.2% ASR in <strong>Mistral</strong>, the other three models achieve notably high ASRs. This indicates the robustness and broad applicability of this backdoor strategy across various domains (from general to biomedical). </p></li></ol><ol type="1" id="1901d4b8-0d39-807c-8d93-d66fd762c650" class="numbered-list" start="2"><li>Defense Results</li></ol><p id="1901d4b8-0d39-801b-89ca-da0259dd978b" class="">The authors examine three main defense methodologies to defend against their backdoor attack in the <em>Mistral 7B</em> model. </p><ul id="1901d4b8-0d39-8057-a290-cef31fb2562e" class="bulleted-list"><li style="list-style-type:disc">First, continue <strong>fine-tuning</strong> on clean data. </li></ul><ul id="1901d4b8-0d39-8075-86a3-d86a4d1a433f" class="bulleted-list"><li style="list-style-type:disc">Second, they use <strong>ONION</strong> [<a href="https://aclanthology.org/2021.emnlp-main.752/">Ref4</a>] to conduct the defense. </li></ul><ul id="1901d4b8-0d39-804d-b7f4-e5380e48d74f" class="bulleted-list"><li style="list-style-type:disc">Third, <strong>pruning</strong>, in which they prune 20% of the model parameters close to zero during inference.</li></ul><p id="1901d4b8-0d39-8025-9c8e-e5a7148452f2" class="">Their defense results are shown in Table 1. Both defense methodologies could only defend against backdoor attacks to a very limited extent. These results suggest that this backdoor attack could efficiently surpass existing defenses and plant the wrong calibration into the model.</p><figure id="1901d4b8-0d39-80ff-9047-e91208b06bf9" class="image"><a href="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/table1.png"><img style="width:709.9642944335938px" src="Uncertainty%20is%20Fragile%20Manipulating%20Uncertainty%20in%2017c1d4b80d398032aa56e97abef4f4eb/table1.png"/></a><figcaption>Table 1: The defense results against the text backdoor attack.</figcaption></figure><h3 id="18d1d4b8-0d39-8032-b39a-f2622daac1b5" class="">Discussion</h3><ul id="1911d4b8-0d39-802e-b46a-fe304ce2b5d5" class="bulleted-list"><li style="list-style-type:disc"><strong>Multiple-choice in LLMs.</strong><ul id="1911d4b8-0d39-806e-8c86-c868fef17a90" class="bulleted-list"><li style="list-style-type:circle">The common method for assessing the performance of LLMs involves <em>multiple-choice questions</em>. However, the validity and reliability of multiple-choice evaluations have been subjects of ongoing debate. This research adds depth to the conversation about the <em>effectiveness</em> of multiple-choice evaluations. </li></ul><ul id="1911d4b8-0d39-8007-97d3-f7dd2b4003c2" class="bulleted-list"><li style="list-style-type:circle">It demonstrates that the <em>uncertainty</em> inherent in multiple-choice-based assessments can be deliberately manipulated using specially crafted datasets. More importantly, these manipulations can generalize across various prompts and content areas. These findings indicate that for robust and dependable applications, the focus of deploying and evaluating LLMs should shift towards scenarios that mimic real-world usage more closely than constrained multiple-choice settings.</li></ul></li></ul><ul id="1911d4b8-0d39-80b6-a305-f8d8efe6a343" class="bulleted-list"><li style="list-style-type:disc"><strong>Calibration in LLMs.</strong><ul id="1911d4b8-0d39-8095-927c-e486fe040d26" class="bulleted-list"><li style="list-style-type:circle">Calibration is essential for ensuring that large language models (LLMs) are honest and dependable. However, this research reveals that the calibration of LLMs in multiple-choice scenarios is inherently fragile and can be easily manipulated to skew confidence levels. This indicates that reliance on <em>simple calibration metrics</em> might not adequately reflect an LLM’s true capabilities. The findings in this paper advocate for more robust measures in model evaluations to ensure their effectiveness and reliability across various applications.</li></ul></li></ul><ul id="1911d4b8-0d39-80d7-8927-e747f626f2b6" class="bulleted-list"><li style="list-style-type:disc"><strong>Limitation.</strong><ul id="1911d4b8-0d39-8045-900e-e5b88cab70fb" class="bulleted-list"><li style="list-style-type:circle">The authors also admitted that there are still <em>significant challenges</em> in performing uncertainty backdoor attacks on <em>complex generative problems</em> currently. This type of attack is limited by two main aspects: <em>the definition of uncertainty</em> and <em>detection methods</em>. </li></ul></li></ul><h1 id="18d1d4b8-0d39-809d-8f5c-dfcfc2c00aa8" class="">Personal Thoughts and Extensions</h1><p id="1911d4b8-0d39-80d8-852a-f889b49fa83b" class="">Below are my thoughts on this paper. I will critique it in five aspects: soundness, significance, novelty, verifiability and transparency, and presentation.</p><ul id="1911d4b8-0d39-80de-b6be-e74fea02e988" class="bulleted-list"><li style="list-style-type:disc"><strong>Soundness. </strong><ul id="1911d4b8-0d39-8021-8ea5-e38867a895f6" class="bulleted-list"><li style="list-style-type:circle">This study focuses on the vulnerability of uncertainty in LLMs. By designing the optimization problem and creating specially crafted datasets, the paper manipulates the output uncertainty of prompts with the trigger while keeping the correct answer unchanged and maintaining performance on clean prompts. Additionally, through various experiments, the study demonstrates the sustained effectiveness of this attack across different domain datasets and prompt types. Therefore, I believe this paper successfully achieves its research objective.</li></ul><ul id="1911d4b8-0d39-8010-ae59-fededcf740cf" class="bulleted-list"><li style="list-style-type:circle">However, when calculating <em>entropy-based</em> Attack Success Rate (ASR), the paper considers an attack successful as long as <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>i</mi></msub><mo>&gt;</mo><msub><mi>p</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">p_i &gt; p_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7335em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span>. I believe this may lead to misjudgments, as minor differences due to randomness may cause <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">p_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> to be slightly larger than <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">p_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span>, even though their actual values are very similar and the attack has not truly succeeded. To mitigate this issue, I suggest setting a threshold, such as <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>i</mi></msub><mo>−</mo><msub><mi>p</mi><mi>j</mi></msub><mo>&gt;</mo><mn>0.1</mn></mrow><annotation encoding="application/x-tex">p_i - p_j &gt; 0.1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8252em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.1</span></span></span></span></span><span>﻿</span></span>, so that only a significant difference is considered a successful attack.</li></ul></li></ul><ul id="1911d4b8-0d39-80cf-8ef6-c210efc82250" class="bulleted-list"><li style="list-style-type:disc"><strong>Significance. </strong><ul id="1921d4b8-0d39-8015-a6ac-f76782cecfd7" class="bulleted-list"><li style="list-style-type:circle">This paper provides a new perspective on uncertainty research in LLMs, demonstrating the vulnerability of uncertainty in LLMs and making a valuable contribution to the study of LLM reliability. It has been tested on a wide range of datasets, proving its generalization ability. Therefore, I believe it can be applied to real-world scenarios.</li></ul><ul id="1921d4b8-0d39-80b7-b12f-d49247dd0306" class="bulleted-list"><li style="list-style-type:circle">However, as mentioned in the &quot;Limitation&quot; section of the paper, this attack method currently cannot be extended to complex generation tasks, which still limits its practical application.</li></ul></li></ul><ul id="1911d4b8-0d39-80b7-84f6-f86f7510cdce" class="bulleted-list"><li style="list-style-type:disc"><strong>Novelty. </strong><ul id="1921d4b8-0d39-8047-827a-c93d4266cccb" class="bulleted-list"><li style="list-style-type:circle">As stated in this paper, previous research has mostly focused on improving the accuracy of uncertainty, with little attention given to its vulnerability. Therefore, I believe this paper adopts a novel perspective and conducts meaningful research on uncertainty. Moreover, unlike existing backdoor attacks that manipulate model outputs to be incorrect or malicious, the attack method presented in this paper does not alter the output results, making it more difficult to detect.</li></ul></li></ul><ul id="1911d4b8-0d39-8015-b3d8-fd4691c46fd3" class="bulleted-list"><li style="list-style-type:disc"><strong>Verifiability and Transparency. </strong><ul id="1921d4b8-0d39-800d-b8c3-d5c0a7bb8e2e" class="bulleted-list"><li style="list-style-type:circle">The datasets selected in this paper are publicly available, and the code has also been shared (<a href="https://github.com/qcznlp/uncertainty_attack">link</a>). The paper clearly specifies the tested models, and all evaluation metrics are well-defined. Therefore, I believe this paper has good verifiability and is highly transparent.</li></ul></li></ul><ul id="1911d4b8-0d39-803d-a164-d4137e884e5f" class="bulleted-list"><li style="list-style-type:disc"><strong>Presentation. </strong><ul id="1921d4b8-0d39-8063-a74e-c395dd99c276" class="bulleted-list"><li style="list-style-type:circle">This paper is well-structured and easy to read. All the background knowledge needed to understand the proposed method is given succinctly, in a way that is easy for the reader to understand without being overly lengthy.</li></ul></li></ul><h1 id="17c1d4b8-0d39-8154-a416-d57cfba57c94" class="">Conclusion</h1><p id="1921d4b8-0d39-80b1-90aa-f68ba468f25e" class="">In conclusion, this study exposes a significant vulnerability in the calibration of LLMs to backdoor attacks that manipulate their uncertainty estimations without altering their top-1 predictions. The findings presented in this paper highlight the fragility of LLMs’ multiple-choice evaluation mechanisms, which can be compromised even while maintaining normal functionality, posing serious risks for their application in high-stakes environments. The demonstrated ability of these attacks to generalize across different domains, coupled with the limited efficacy of existing defenses, underscores an urgent need for more robust measures to secure LLMs against such adversarial threats.</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
