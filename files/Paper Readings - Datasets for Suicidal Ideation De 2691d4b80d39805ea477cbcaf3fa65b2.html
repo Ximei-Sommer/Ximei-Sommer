@@ -1,0 +1,691 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Paper Readings - Datasets for Suicidal Ideation Detection</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(199, 121, 69, 1);
+	fill: rgba(199, 121, 69, 1);
+}
+.highlight-yellow {
+	color: rgba(175, 136, 66, 1);
+	fill: rgba(175, 136, 66, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(174, 96, 133, 1);
+	fill: rgba(174, 96, 133, 1);
+}
+.highlight-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.highlight-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.highlight-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.highlight-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(232, 242, 250, 1);
+}
+.highlight-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.highlight-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.highlight-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(199, 121, 69, 1);
+	fill: rgba(199, 121, 69, 1);
+}
+.block-color-yellow {
+	color: rgba(175, 136, 66, 1);
+	fill: rgba(175, 136, 66, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(174, 96, 133, 1);
+	fill: rgba(174, 96, 133, 1);
+}
+.block-color-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(232, 242, 250, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 99, 174, 0.172); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2691d4b8-0d39-805e-a477-cbcaf3fa65b2" class="page sans"><header><img class="page-cover-image" src="Paper%20Readings%20-%20Datasets%20for%20Suicidal%20Ideation%20De%202691d4b80d39805ea477cbcaf3fa65b2/luna.png" style="object-position:center 8.57%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🌕</span></div><h1 class="page-title">Paper Readings - Datasets for Suicidal Ideation Detection</h1><p class="page-description"></p></header><div class="page-body"><p id="2691d4b8-0d39-81e1-a655-d62ea988a293" class="">September 9, 2025</p><p id="2691d4b8-0d39-8195-b1d8-d6ef078acdd7" class="block-color-gray"><strong>Ximei Xu, ximeixu79@gmail.com</strong></p><p id="2691d4b8-0d39-8177-bc3e-ca50e17ae097" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2691d4b8-0d39-81c5-b04e-f818c8d055b2"><div style="font-size:1.5em"><span class="icon">🪷</span></div><div style="width:100%"><p id="2691d4b8-0d39-81fc-ac93-f4053188f6a2" class="">In this blog, I will introduce several papers about datasets developed for suicidal ideation detection.</p></div></figure><h1 id="2691d4b8-0d39-81a8-b208-ed8530f6fe9c" class="">Papers about datasets</h1><p id="2691d4b8-0d39-802b-b76e-ecd0b86f957a" class=""><a href="https://www.hkie.org.hk/hkietransactions/upload/2022-12-09/THIE-2022-0031.pdf">Suicide risk level prediction and suicide trigger detection: a benchmark dataset</a></p><figure id="2691d4b8-0d39-801f-ac2d-f348a84fb0cb" class="image"><a href="Paper%20Readings%20-%20Datasets%20for%20Suicidal%20Ideation%20De%202691d4b80d39805ea477cbcaf3fa65b2/image.png"><img style="width:709.9910888671875px" src="Paper%20Readings%20-%20Datasets%20for%20Suicidal%20Ideation%20De%202691d4b80d39805ea477cbcaf3fa65b2/image.png"/></a></figure><p id="2691d4b8-0d39-8070-b564-eb87c70178d1" class=""><a href="https://ieeexplore.ieee.org/abstract/document/11108158">RSD-15K: A Large-Scale User-Level Annotated Dataset for Suicide Risk Detection on Social Media</a></p><h1 id="26f1d4b8-0d39-809f-a64f-e542b11982a3" class="">Machine Classification and Analysis of Suicide-Related Communication on Twitter (2015)</h1><p id="26f1d4b8-0d39-80ba-9d21-fe115089d4b3" class=""><a href="https://dl.acm.org/doi/pdf/10.1145/2700171.2791023">Reference Link</a></p><h2 id="26f1d4b8-0d39-806a-9432-cf206e3a6f4b" class="">Data Collection and Annotation (post-level)</h2><p id="26f1d4b8-0d39-80b5-9fb5-d7800176d207" class="">The authors generated a <strong>lexicon</strong> of terms by collecting anonymised data from known suicide Web forums, blogs and microblogs, and asking human annotators to identify whether it contained references to suicidal ideation. <div class="indented"><ul id="26f1d4b8-0d39-808f-9b3d-f6c5e5c7f082" class="bulleted-list"><li style="list-style-type:disc">First they collected user posts from four known Web sites identied by experts in the field as being used to discuss suicidal themes for support and prevention, and data from microblogging site Tumblr.</li></ul><ul id="26f1d4b8-0d39-8034-b8a7-ff461edbac00" class="bulleted-list"><li style="list-style-type:disc">For each of the resulting Websites they collected an equal number of 200 posts, with a total of 800 text posts. These posts, and 1000 posts randomly selected from the Tubmlr sample, were subsequently human annotated using the crowd-sourcing online service Crowdflower. Human annotators were asked to identify content containing suicidal ideation.</li></ul><ul id="26f1d4b8-0d39-80de-a024-e415c3738e93" class="bulleted-list"><li style="list-style-type:disc">They then applied the TF-IDF method to the corpus in order to identify terms that appear frequently in the suicidal ideation class but appear with less frequency in the non-ideation class. This resulted in a final list of <strong>62</strong> keywords and phrases that suggested possible suicide intent. These search terms were then used to collect data from <strong>Twitter</strong> via the Twitter Streaming Application Programming Interface (API).</li></ul></div></p><p id="26f1d4b8-0d39-8050-ad13-cc593fa40713" class="">Twitter data were collected for a continuous period of <strong>six</strong> weeks from <strong>1st February 2014</strong> using the above terms, resulting in a dataset of over <strong>four million</strong> posts. </p><p id="26f1d4b8-0d39-8062-abc2-fd9afc5ec360" class="">In parallel the authors monitored <strong>traditional media</strong> over the same period to identify the names of reported suicide cases in England. They then retrieved a second dataset from <strong>Twitter</strong> using <strong>the name and surname of the deceased</strong> as search keywords.</p><p id="26f1d4b8-0d39-80f6-a902-f6174b5d853b" class="">Next, the authors produced a random sample of <strong>1000 tweets</strong> from both datasets, with <strong>80%</strong> of posts from the collection of <strong>suicide related search terms</strong>, and the remaining from the <strong>names</strong> dataset. The human annotation task was repeated using the same crowdsourcing service. Human annotators were asked to classify data into either one or more of the six suicide related categories listed below, or into the seventh category representing tweets that cannot be classified into any of them.</p><figure id="26f1d4b8-0d39-801f-b206-d7def6b6d7df" class="image"><a href="Paper%20Readings%20-%20Datasets%20for%20Suicidal%20Ideation%20De%202691d4b80d39805ea477cbcaf3fa65b2/image%201.png"><img style="width:584.1160888671875px" src="Paper%20Readings%20-%20Datasets%20for%20Suicidal%20Ideation%20De%202691d4b80d39805ea477cbcaf3fa65b2/image%201.png"/></a><figcaption>Types of Suicidal communication with relative % proportion in dataset.</figcaption></figure><p id="26f1d4b8-0d39-8089-b983-f5768ee34c20" class="">They removed all tweets with less than 75% agreement, and discarded any where less than three out of four annotators (75%) agreed on the dominant class for each tweet. Annotators were allowed to select multiple class labels and the <strong>majority</strong> choice was taken. The resulting dataset of <strong>816</strong> Tweets was subsequently used to train a machine learning classifier.</p><h1 id="2701d4b8-0d39-80f2-b360-d6556f7559ea" class="">Discovering Shifts to Suicidal Ideation from Mental Health Content in Social Media (2016)</h1><p id="2701d4b8-0d39-8057-9a71-ca3bb2250170" class=""><a href="https://dl.acm.org/doi/pdf/10.1145/2858036.2858207">Reference Link</a></p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2701d4b8-0d39-80a8-a893-ffebed1439d7"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="2701d4b8-0d39-80ca-bdf9-e2e833854c7e" class="">The central research question investigated in this paper involves: Can we forecast whether an individual engaged in mental health discussions would, in the future, discuss suicidal ideation? </p></div></figure><h2 id="2701d4b8-0d39-8039-8ae1-efa4cf7680a9" class="">Data Collection</h2><ul id="2701d4b8-0d39-80ed-afb0-c3f2d9a73432" class="bulleted-list"><li style="list-style-type:disc">The authors obtained post and comment data from a number of mental health subreddits (henceforth <strong>MHs</strong>) and a suicide support subreddit “r/SuicideWatch” (henceforth <strong>SW</strong>). <ul id="2701d4b8-0d39-80b4-8c30-d77ba7a74dc5" class="bulleted-list"><li style="list-style-type:circle">They focused on a set of <strong>14</strong> MHs on mental health discourse, including r/depression, r/mentalhealth, r/traumatoolbox, r/bipolarreddit, r/BPD, r/ptsd, r/psychoticreddit, r/EatingDisorders, r/StopSelfHarm, r/survivorsofabuse, r/rapecounseling, r/hardshipmates, r/panicparty, r/socialanxiety. </li></ul><ul id="2701d4b8-0d39-80ac-a976-eb35e732d524" class="bulleted-list"><li style="list-style-type:circle">While SW solely focuses on helping those contemplating suicide, the other MHs cover a variety of mental health concerns but not specifically suicidal ideation. </li></ul><ul id="2701d4b8-0d39-805f-b672-e088487b782b" class="bulleted-list"><li style="list-style-type:circle">All of these subreddits host public content.</li></ul></li></ul><ul id="2701d4b8-0d39-80a4-ab63-d86df28b2d21" class="bulleted-list"><li style="list-style-type:disc">They used Reddit’s official API to collect <strong>posts, comments, and associated metadata</strong> from the SW and MHs subreddits (<a href="http://www.reddit.com/dev/api">http://www.reddit.com/dev/api</a>). </li></ul><ul id="2701d4b8-0d39-80b3-8847-fa84b19d41ea" class="bulleted-list"><li style="list-style-type:disc">Their analysis in this paper is based on all content shared on <strong>MHs</strong> between <strong>February 11 and November 11 2014 </strong>(63,485 posts, 209,766 comments and 35,038 users). They refer to the data obtained from SW during the same time period (16,348 posts, 9,224 users) to identify those individuals in MHs who go on to post on SW over time.</li></ul><h2 id="2701d4b8-0d39-80ab-b5d7-f96dfdaf4a6f" class="">Constructing User Classes</h2><p id="2701d4b8-0d39-80e5-944c-ea3b55eb84cf" class="">The authors split their data into two sequential time periods (t1 from Feb 11 2014 to Aug 11 2014, and t2 from Aug 12 2014 to November 11 2014). Using these two time periods, they created two sets of users. Figure below shows a schematic description of their user class construction.</p><figure id="2701d4b8-0d39-8078-8e14-c9a5f99120e0" class="image"><a href="Paper%20Readings%20-%20Datasets%20for%20Suicidal%20Ideation%20De%202691d4b80d39805ea477cbcaf3fa65b2/image%202.png"><img style="width:709.9910888671875px" src="Paper%20Readings%20-%20Datasets%20for%20Suicidal%20Ideation%20De%202691d4b80d39805ea477cbcaf3fa65b2/image%202.png"/></a><figcaption>Schematic diagram of obtaining MH SW and MH classes of users.</figcaption></figure><ul id="2701d4b8-0d39-80fe-b654-eb917681c83a" class="bulleted-list"><li style="list-style-type:disc">This split yielded <strong>440</strong> <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>H</mi><mo>→</mo><mi>S</mi><mi>W</mi></mrow><annotation encoding="application/x-tex">MH \to SW</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span></span></span></span></span><span>﻿</span></span> users; which is 1.52% of the total number of 28,831 accounts who posted in MHs but never on SW during either of the periods. To construct a MH cohort of equal size who did not post on SW in either period, they randomly sampled a set of <strong>440</strong> users from the 28,831 users.</li></ul><ul id="2701d4b8-0d39-8057-b5c4-f2641b93de32" class="bulleted-list"><li style="list-style-type:disc">The authors then obtained the timeline of posts and comments authored by the 880 users via Reddit’s API (the API only provides the last 1000 public posts and comments for a user). For each post, they obtained associated metadata (e.g., vote difference or score) and comments. </li></ul><ul id="2701d4b8-0d39-8033-91d1-c46b237c727a" class="bulleted-list"><li style="list-style-type:disc">Their final dataset contained 4,731 posts and 46,949 comments from the 440 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>H</mi><mo>→</mo><mi>S</mi><mi>W</mi></mrow><annotation encoding="application/x-tex">MH \to SW</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span></span></span></span></span><span>﻿</span></span> users, and 8,318 posts and 54,086 comments from the 440 MH users.</li></ul><h1 id="2701d4b8-0d39-809a-907f-c3ed4fb75bae" class="">University of Maryland Suicidality dataset (UMD) (2018)</h1><p id="2691d4b8-0d39-8003-905f-ea424181257c" class=""><a href="https://aclanthology.org/W18-0603.pdf">Reference Link</a></p><ul id="2691d4b8-0d39-80f3-9ca0-cdb0832a583e" class="bulleted-list"><li style="list-style-type:disc"><strong>Approach:</strong> to identify users who have produced an overt signal, in social media, indicating they might be a positive instance of the relevant condition, and then manually assessing the signal to filter out candidates for which the signal does not appear genuine.<ul id="2691d4b8-0d39-8078-8d0e-f585c747d516" class="bulleted-list"><li style="list-style-type:circle">The “signal” for a user’s candidate positive status with respect to <strong>suicidality</strong> is their having posted in the /r/SuicideWatch subreddit, a forum providing “peer support for anyone struggling with suicidal thoughts, or worried about someone who may be at risk”.</li></ul></li></ul><ul id="2691d4b8-0d39-80ca-bf9a-f0bda66a276b" class="bulleted-list"><li style="list-style-type:disc">A snapshot of every publicly available Reddit posting from <strong>January 1, 2008</strong> through <strong>August 31, 2015</strong>, with partial data from 2006-2007, comprising approximately 42G of compressed data. Eliminating users who had fewer than <strong>ten</strong> total posts across all of Reddit, they had <strong>11,129 users</strong> who had posted in SuicideWatch for a total of <strong>1,556,194 posts</strong>. Through random sampling they selected <strong>1097 users</strong>, of which <strong>934</strong> ultimately were included. <ul id="2691d4b8-0d39-800d-b563-d0573d90add0" class="bulleted-list"><li style="list-style-type:circle">For these users they extracted not only their SuicideWatch posts, but all their Reddit posts available in the snapshot. </li></ul><ul id="2691d4b8-0d39-8018-8da4-db8fc32a4cd6" class="bulleted-list"><li style="list-style-type:circle">They also aggregated the data from <strong>an equal number</strong> of control users who had not posted in any of the mental health subreddits identified by Pavalanathan and De Choudhury (2015), nor in the /r/schizophrenia subreddit.</li></ul></li></ul><ul id="2691d4b8-0d39-8022-b5eb-c9df330a9f6f" class="bulleted-list"><li style="list-style-type:disc">They defined a four-way categorization of risk (<strong>user-level annotation</strong>)<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2691d4b8-0d39-8011-86ca-d694fd397355"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="2691d4b8-0d39-800e-87d0-f552b7f214b7" class="">They began with the temporally ordered sequences of posts on <em>SuicideWatch</em> for each of the 934 users.</p></div></figure><ol type="1" id="2691d4b8-0d39-807a-abb0-f40cda7efa22" class="numbered-list" start="1"><li>No Risk (or “None”): I don’t see evidence that this person is at risk for suicide; </li></ol><ol type="1" id="2691d4b8-0d39-80bb-a32e-df40dd917e80" class="numbered-list" start="2"><li>Low Risk: There may be some factors here that could suggest risk, but I don’t really think this person is at much of a risk of suicide; </li></ol><ol type="1" id="2691d4b8-0d39-8049-b65d-cbeb576fddec" class="numbered-list" start="3"><li>Moderate Risk: I see indications that there could be a genuine risk of this person making a suicide attempt; </li></ol><ol type="1" id="2691d4b8-0d39-800c-8c23-fe2e22564c65" class="numbered-list" start="4"><li>Severe Risk: I believe this person is at high risk of attempting suicide in the near future.<figure id="2691d4b8-0d39-803b-bf61-f8f98544be81" class="image"><a href="Paper%20Readings%20-%20Datasets%20for%20Suicidal%20Ideation%20De%202691d4b80d39805ea477cbcaf3fa65b2/Screenshot_2025-09-04_110753.png"><img style="width:576px" src="Paper%20Readings%20-%20Datasets%20for%20Suicidal%20Ideation%20De%202691d4b80d39805ea477cbcaf3fa65b2/Screenshot_2025-09-04_110753.png"/></a></figure></li></ol></li></ul><ul id="2691d4b8-0d39-8064-a334-c362dc0bf8c8" class="bulleted-list"><li style="list-style-type:disc">Annotator instructions<ul id="2691d4b8-0d39-80f1-be58-dc48de85c68c" class="bulleted-list"><li style="list-style-type:circle"><strong>Short instructions:</strong> intended only for experts, simply presented the above categorization and asked them to follow their training in assessing patients with suicide risk. </li></ul><ul id="2691d4b8-0d39-804a-ba39-cbc9b7654025" class="bulleted-list"><li style="list-style-type:circle"><strong>Long set of instructions:</strong> they identified four families of risk factors: <strong>thoughts</strong> includes not only explicit ideation but also, e.g., feeling they are a burden to others or having a “fuck it” (screw it, game over, farewell) thought pattern; <strong>feelings</strong> includes, e.g., a lack of hope for things to get better, or a sense of agitation or impulsivity (mixed depressive state); <strong>logistics</strong> includes, e.g., talking about methods of attempting suicide (even if not planning), or having access to lethal means like firearms; and <strong>context</strong> includes, e.g. previous attempts, a significant life change, or isolation from friends and family.</li></ul></li></ul><ul id="2691d4b8-0d39-8017-9b1e-f1d8a0f72fe9" class="bulleted-list"><li style="list-style-type:disc"><strong>Expert Annotation</strong>: they selected <strong>245 users</strong> at random to create a set of <strong>250 annotation units</strong> that were labeled independently by<strong> four volunteer experts</strong> in assessment of suicide risk.<ul id="2691d4b8-0d39-8000-834e-d890438e862e" class="bulleted-list"><li style="list-style-type:circle">They generated <strong>consensus user-level labels</strong> based on the expert annotations using a well known model for inferring true labels from multiple noisy annotations (Dawid and Skene, 1979; Passonneau and Carpenter, 2014), including consensus for the pairs receiving long instructions (Long Experts), short instructions (Short Experts), and consensus among all four experts.</li></ul></li></ul><ul id="2691d4b8-0d39-80d6-9eb7-cb4a1e29c771" class="bulleted-list"><li style="list-style-type:disc"><strong>Crowdsourced Annotation</strong>:  their data comprises <strong>865 users</strong> and <strong>905 annotation units</strong>.<ul id="2691d4b8-0d39-80cb-a18b-c02bd9b5cff6" class="bulleted-list"><li style="list-style-type:circle">They used CrowdFlower’s built-in consensus label as the crowdsourced label for each<br/>unit.</li></ul></li></ul><ul id="2691d4b8-0d39-80ad-8244-fac26d27e882" class="bulleted-list"><li style="list-style-type:disc">How to achieve the suicidal risk assessment task:<p id="2691d4b8-0d39-8017-8895-ca7f44b9fe2e" class="">Reference paper: <a href="https://arxiv.org/pdf/2306.09390">ChatGPT for Suicide Risk Assessment on Social Media: Quantitative Evaluation of Model Performance, Potentials and Limitations</a></p><p id="2691d4b8-0d39-8046-a69b-d16b311a52df" class="">Since the provided labels are user-level labels, they aggregated all the posts of each user into <strong>a single data point</strong>, through the concatenation of all the posts made by a particular user.</p></li></ul><h1 id="26a1d4b8-0d39-801d-9610-d1e4e2b3beb3" class=""><strong>Supervised Learning for Suicidal Ideation Detection in Online User Content (2018)</strong></h1><p id="26a1d4b8-0d39-80f2-8b20-fa082250d153" class=""><a href="https://onlinelibrary.wiley.com/doi/full/10.1155/2018/6157249">Reference link</a></p><p id="26a1d4b8-0d39-807f-992f-ed5720c099c7" class="">This paper first collected their own post-level datasets from both Reddit and Twitter. After that, they analyzed the linguistic features of posts with and without suicide intent.  Then they apply several machine learning and deep learning methods on these datasets. Finally experiment results were evaluated.</p><h2 id="26a1d4b8-0d39-8009-bcfc-c054a3259872" class="">Datasets</h2><p id="26a1d4b8-0d39-80ed-a11d-c54096574012" class="">The datasets collected by the authors are all designed for binary classification (with or without suicide intent).</p><h3 id="26a1d4b8-0d39-80f2-8850-e29b3a0f862e" class="">Reddit Dataset</h3><ul id="26a1d4b8-0d39-8066-99d0-cea97abc320e" class="bulleted-list"><li style="list-style-type:disc">They collected posts with potential suicide intentions from a subreddit called “SuicideWatch”(SW) (<strong><a href="https://www.reddit.com/r/SuicideWatch/">https://www.reddit.com/r/SuicideWatch/</a></strong>). Posts without suicidal content were sourced from other popular subreddits (<strong><a href="https://www.reddit.com/r/all/">https://www.reddit.com/r/all/</a></strong>, <strong><a href="https://www.reddit.com/r/popular/">https://www.reddit.com/r/popular/</a></strong>). <ul id="26a1d4b8-0d39-800d-8125-dd9efbb4b5b5" class="bulleted-list"><li style="list-style-type:circle">The collection of nonsuicidal data is totally a user-generated content, and the posts of news aggregation and administrator are excluded.</li></ul></li></ul><ul id="26a1d4b8-0d39-80f1-a70b-e8a1c2de55b4" class="bulleted-list"><li style="list-style-type:disc">The Reddit dataset includes <strong>3549</strong> suicidal ideation samples and a number of nonsuicide texts. In particular, they construct two datasets for Reddit. <ul id="26a1d4b8-0d39-800f-b90f-d9853f83c68b" class="bulleted-list"><li style="list-style-type:circle">The first dataset includes two subreddits in which one is from <strong>SuicideWatch</strong> and another is from <strong>popular posts</strong> in Reddit. </li></ul><ul id="26a1d4b8-0d39-801e-afe9-e3753162f050" class="bulleted-list"><li style="list-style-type:circle">The second dataset is composed of <strong>six</strong> subreddits that include <strong>SuicideWatch</strong> and another five hot topics: <strong>gaming</strong> (<strong><a href="https://www.reddit.com/r/gaming/">https://www.reddit.com/r/gaming/</a></strong>), <strong>jokes</strong> (<strong><a href="https://www.reddit.com/r/Jokes/">https://www.reddit.com/r/Jokes/</a></strong>), <strong>books</strong> (<strong><a href="https://www.reddit.com/r/books/">https://www.reddit.com/r/books/</a></strong>), <strong>movies</strong> (<strong><a href="https://www.reddit.com/r/movies/">https://www.reddit.com/r/movies/</a></strong>), and <strong>AskReddit</strong> (<strong><a href="https://www.reddit.com/r/AskReddit/">https://www.reddit.com/r/AskReddit/</a></strong>). In the second dataset, the combination of SuicideWatch with any other subreddit will be a new <strong>balanced</strong> subdataset.</li></ul></li></ul><h3 id="26a1d4b8-0d39-806e-a1d0-cd7211d15642" class="">Twitter Dataset</h3><p id="26a1d4b8-0d39-8005-87c7-f024609593a3" class="">The Twitter dataset is collected using a <strong>keyword filtering</strong> technique. Many of the collected tweets have the suicidal-related words, but they possibly talk about a suicide movie or advertisement which does not contain suicidal ideation. Therefore, the authors manually checked and labeled collected tweets. </p><p id="26a1d4b8-0d39-8047-a9ef-cc4f1f62385f" class="">The imbalanced Twitter dataset has totally <strong>10,288</strong> tweets with <strong>594</strong> tweets (around <strong>6%</strong>) with suicidal ideation.</p><h2 id="26a1d4b8-0d39-8084-be4d-e82153db9704" class="">Methods</h2><h3 id="26a1d4b8-0d39-807f-808f-ce7082ca08eb" class="">Feature Processing</h3><p id="26a1d4b8-0d39-80bb-8549-eba6d78ec1ff" class="">By preprocessing and cleaning the data in advance, they extracted several features including statistics, word-based features (e.g., suicidal words and pronouns), TF-IDF, semantics, and syntactics. Additionally, we used distributed features by training neural networks to embed word into vector representations, along with topic features extracted by LDA as unsupervised features.</p><h3 id="26a1d4b8-0d39-8089-ad11-c4fe773e7685" class="">Classification Models</h3><figure id="26a1d4b8-0d39-8092-a42d-f436685199db" class="image"><a href="Paper%20Readings%20-%20Datasets%20for%20Suicidal%20Ideation%20De%202691d4b80d39805ea477cbcaf3fa65b2/image%203.png"><img style="width:576px" src="Paper%20Readings%20-%20Datasets%20for%20Suicidal%20Ideation%20De%202691d4b80d39805ea477cbcaf3fa65b2/image%203.png"/></a><figcaption>The model’s structure for Reddit dataset.</figcaption></figure><p id="26a1d4b8-0d39-80f9-82e1-df58b0dacf6e" class="">The specific classification models include support vector machine, Random Forest, gradient boost classification tree (GBDT), XGBoost, and multi-layer feed-forward neural net (MLFFNN). </p><p id="26a1d4b8-0d39-802d-ab39-f7d0b6709612" class="">For comparison and to solve the problem of understanding the semantic meaning and syntactic structure of sentences, the authors aslo used long short-term memory (LSTM) network.</p><h2 id="26a1d4b8-0d39-809d-ac4c-d92ba5dd0215" class="">Results</h2><p id="26a1d4b8-0d39-801d-86c9-f168f664afbb" class="">In the <strong>first</strong> Reddit dataset, <strong>XGBoost</strong> had the best performance of the six methods when taking all groups of features as inputs.</p><p id="26a1d4b8-0d39-8040-946a-de072ecc7fe0" class="">In the <strong>second</strong> Reddit dataset, <strong>XGBoost</strong> produced the best results on “movies” and “AskReddit” in terms of accuracy and F1 scores. <strong>LSTM</strong> and <strong>Random Forest</strong> outperformed the other models in “gaming” and “books,” respectively.</p><p id="26a1d4b8-0d39-8064-a99f-dabd6013acfe" class="">In the <strong>Twitter</strong> dataset, <strong>Random Forest</strong> gains better performance than most models except for the metric of precision in which the <strong>MLFFNN</strong> gains a slightly better result.</p><h1 id="26c1d4b8-0d39-801a-8663-de020847cf99" class="">Natural Language Processing of Social Media as Screening for Suicide Risk (2018)</h1><p id="26c1d4b8-0d39-80fd-a237-c7a4a0f467d6" class=""><a href="https://journals.sagepub.com/doi/full/10.1177/1178222618792860">Reference Link</a></p><p id="26c1d4b8-0d39-80a4-9fb3-c06eacab6f4c" class="">The authors combine data from 2 sources to create their dataset—examining public self-stated data and using data donated through <a href="http://ourdatahelps.org/">OurDataHelps.org</a>.</p><h2 id="26c1d4b8-0d39-80a9-8de0-fd1dca333c97" class=""><strong>OurDataHelps.org users</strong></h2><p id="26c1d4b8-0d39-80c8-aa27-d10f1e3107a7" class="">The first data source is from a set of users who have donated their data to support research in this area through OurDataHelps.org. </p><ul id="26c1d4b8-0d39-80ec-892e-e893bfcf1074" class="bulleted-list"><li style="list-style-type:disc">Users of this platform authorize access to data from their digital life. Specifically relevant to this study, they note the <strong>number and dates</strong> of past suicide attempts.</li></ul><ul id="26c1d4b8-0d39-8022-803c-cb66916026f6" class="bulleted-list"><li style="list-style-type:disc">In this study, the authors examine the <strong>posts</strong> that the user made publicly and visible to their “friends and family”. </li></ul><ul id="26c1d4b8-0d39-8080-8c4e-ef3475b9d2cd" class="bulleted-list"><li style="list-style-type:disc">From this source, they have <strong>186</strong> users who have attempted suicide. Many of the users who donated data at OurDataHelps.org did not attempt suicide or have any reported mental health diagnoses. For each user who attempted suicide from the OurDataHelps.org population, the authors find a user with the same gender and nearly the same age to serve as a <strong>control</strong>.</li></ul><h2 id="26c1d4b8-0d39-8030-9409-fb624faed62f" class="">Public self-stated users</h2><p id="26c1d4b8-0d39-8079-8b0c-d723fda0b545" class="">The second data source comes from users who publicly discuss past suicide attempts on <strong>social media</strong>. </p><ul id="26c1d4b8-0d39-80a0-b233-d16b638c81fb" class="bulleted-list"><li style="list-style-type:disc">These users make posts that describe the date of a past suicide attempt. From these statements, the authors can infer the date of the suicide attempt and examine public data prior to that attempt from this user. </li></ul><ul id="26c1d4b8-0d39-80cc-b2b9-c8deb2bee474" class="bulleted-list"><li style="list-style-type:disc">To find matched controls to the self-stated data, they examine a random sample of Twitter data, finding users whose posts were primarily in English, and were either human-annotated or estimated to be of <strong>the same gender and approximate age</strong> as a user who has attempted suicide.</li></ul><h2 id="26c1d4b8-0d39-8055-9e8e-cab3d246a0f7" class="">Combined dataset</h2><p id="26c1d4b8-0d39-8054-9cbf-fd728d16a65b" class="">When the data from these 2 sources are combined, the authors have 547 users who have attempted suicide, 418 users of which they know the month of their suicide attempt (263 of which they know the exact date) and can access data prior to the attempt. They restrict the data from these users to only the posts made in the 6 months prior to their suicide attempt. </p><ul id="26c1d4b8-0d39-80b0-ac5b-d89309e2aae0" class="bulleted-list"><li style="list-style-type:disc">This results in a final dataset of <strong>418</strong> users who have attempted suicide for whom they have up to <strong>6 months</strong> of posts prior to their suicide attempt (and an equal number of demographically matched controls).</li></ul><ul id="26c1d4b8-0d39-8064-a559-c3313613c2e9" class="bulleted-list"><li style="list-style-type:disc">For each user, the authors have an average of <strong>473</strong> social media posts (and an equal number drawn from each matched control), for a total of <strong>197 615</strong> posts from those who would go on to attempt suicide in the next 6 months, and an additional 197 615 posts from their matched controls (for a total of <strong>395 230</strong> posts).</li></ul><h1 id="2691d4b8-0d39-8070-b078-db26fd7b92ff" class="">#suicidal- A Multipronged Approach to Identify and Explore Suicidal Ideation in Twitter (2019)</h1><p id="2691d4b8-0d39-800c-9f9b-fba5b5a25739" class=""><a href="https://dl.acm.org/doi/pdf/10.1145/3357384.3358060">Reference Link</a></p><p id="2691d4b8-0d39-80cb-b81c-f3984cf3a467" class="">The dataset generation was done in two phases: (i) A <strong>lexicon</strong> of suicidal phrases was generated. (ii) <strong>Real-time and historical tweets</strong> were collected using the lexicon along with the <strong>social engagement<br/>data</strong> associated with them.</p><h2 id="2691d4b8-0d39-80c5-857e-cd85498fbe1a" class="">Developing a Lexicon of Suicidal Phrases</h2><ul id="2691d4b8-0d39-806d-a33d-cf84cacee0c9" class="bulleted-list"><li style="list-style-type:disc">Three different forums that are dedicated to the discussion of suicidal thoughts were scraped and the top posts (based on votes) were used to extract phrases. Posts with little or no suicidal ideation information were removed manually. </li></ul><ul id="2691d4b8-0d39-8022-a7af-e172a00ff655" class="bulleted-list"><li style="list-style-type:disc">The TextRank algorithm was used for ranking and gathering the list of the most prominent phrases from these posts. </li></ul><ul id="2691d4b8-0d39-8077-9d02-d7255aa13bab" class="bulleted-list"><li style="list-style-type:disc">The resulting list had <strong>207</strong> phrases. Furthermore, the lexicon was extended by using the lexicon shared in [<a href="https://aclanthology.org/W18-6223.pdf">Ref 1</a>], resulting in a lexicon of <strong>248</strong> phrases.</li></ul><h2 id="2691d4b8-0d39-8040-a0e4-d387124a423c" class="">DataCollection</h2><h3 id="2691d4b8-0d39-8018-a750-c6aa99d8a1f6" class="">Tweet Collection</h3><ul id="2691d4b8-0d39-8036-9d2e-c9ae36c1516c" class="bulleted-list"><li style="list-style-type:disc">For each phrase in the curated lexicon, tweets were collected using the Twitter REST API. A total of <strong>48,887</strong> tweets were obtained. <ul id="2691d4b8-0d39-8073-9c64-cd4504cc8e46" class="bulleted-list"><li style="list-style-type:circle">Retweets and non-English language tweets were removed. </li></ul><ul id="2691d4b8-0d39-801d-8861-e2d1299b5327" class="bulleted-list"><li style="list-style-type:circle">A manual check was done to remove tweets that were trivially non-suicidal or exhibited flippant behaviour. </li></ul><ul id="2691d4b8-0d39-80cd-bc06-ce19764c9f8e" class="bulleted-list"><li style="list-style-type:circle">12 user accounts were detected to be throwaway accounts made within 10 days of scraping and were therefore discarded. </li></ul></li></ul><ul id="2691d4b8-0d39-804f-a7a6-c4de5ac6d099" class="bulleted-list"><li style="list-style-type:disc">The resulting dataset consists of <strong>34,306</strong> tweets.</li></ul><h3 id="2691d4b8-0d39-8014-9a14-fac9b01de7bc" class="">User Historic Activity Data</h3><p id="2691d4b8-0d39-8068-b274-de01ee3ca73c" class="">For the 34,306 tweets in the dataset, there are <strong>32,558</strong> unique users. For each of these users, the tweet timeline (previous 3,200 tweets or as many as available) was also collected using the Twitter API.</p><h3 id="2691d4b8-0d39-8002-ab9b-dbff7d8de449" class="">Social Graph Data</h3><p id="2691d4b8-0d39-8061-886f-caadd1dad69e" class="">In this work, the authors also investigate into the social graph constructed from the user interactions in their dataset.</p><h2 id="2691d4b8-0d39-80c7-a86a-c59cf5b15249" class="">Annotation Details</h2><p id="2691d4b8-0d39-801f-8385-e43a3173f362" class="">The authors treat the problem of suicidal ideation detection as a <strong>binary</strong> classification task with two classes: Suicidal Intent Present and Suicidal Intent Absent (<strong>post-level annotation</strong>).</p><ul id="2691d4b8-0d39-80db-bce2-cf9ddad7a213" class="bulleted-list"><li style="list-style-type:disc">Two annotators, who are students of clinical psychology and regular social media users, were provided with the guidelines to label the tweets. The annotation process was supervised by a practising clinical psychologist. The resulting dataset had <strong>3,984</strong> suicidal tweets (<strong>11.61</strong>% of the entire dataset).</li></ul><ul id="2691d4b8-0d39-8090-bf9f-f2cef42c17ac" class="bulleted-list"><li style="list-style-type:disc">A significant fraction of the dataset included tweets recognised to be flippant references to suicide, messages of support and awareness, suicide related news and information, which although being non-suicidal were collected by the keyword filtering approach.</li></ul><h1 id="26a1d4b8-0d39-8058-a1d5-db84a8e150aa" class="">Summary on Data Characterization</h1><ol type="1" id="2691d4b8-0d39-8081-bc9e-f1c5046f19c3" class="numbered-list" start="1"><li>Data collected form Reddit is usually from the subreddit forum <em>suicidewatch</em>, while data collected from Twitter (X) is usually built from keywords searches.</li></ol><ol type="1" id="26a1d4b8-0d39-800a-bd8f-db3dfb7ff53f" class="numbered-list" start="2"><li>Twitter is quite different with Reddit as (1) each tweet’s length is limited in 140 characters (this limit is now 280 characters), (2) tweet users may have some social network friends from the real world while Reddit users are fully anonymous, and (3) the communication and interaction type are totally different between social networking websites and online forums.</li></ol><ol type="1" id="26a1d4b8-0d39-8090-9d24-c651e5c5c4cf" class="numbered-list" start="3"><li>The dominant words in these two social platforms have different styles due to the posting rules of the platforms. Reddit users are willing to describe their life events and their stories about their friends in posts. While the content in Twitter is much more straightforward with expressions like “want kill,” “going kill,” and “wanna kill.” The details are usually not included in their tweets.</li></ol><p id="26f1d4b8-0d39-807e-9fc9-eb0a0fd4a09d" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
