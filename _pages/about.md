@@ -9,7 +9,7 @@ redirect_from:
 
 Welcome! I’m Ximei Xu.
 
-I am a Master’s student in Computer Science with concentration in Applied Artificial Intelligence at the University of Ottawa.
+I am a Master’s student in Computer Science with concentration in Applied Artificial Intelligence at the University of Ottawa, supervised by Prof. Hussein Al Osman.
 
 My research focuses on suicidal ideation detection using social media posts, exploring how natural language processing and large language models can help identify early signals of mental health risk.
 
