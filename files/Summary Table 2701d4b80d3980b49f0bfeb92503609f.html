@@ -1,0 +1,691 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Summary Table</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(199, 121, 69, 1);
+	fill: rgba(199, 121, 69, 1);
+}
+.highlight-yellow {
+	color: rgba(175, 136, 66, 1);
+	fill: rgba(175, 136, 66, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(174, 96, 133, 1);
+	fill: rgba(174, 96, 133, 1);
+}
+.highlight-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 111, 200, 0.09);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(128, 125, 120, 1);
+	fill: rgba(128, 125, 120, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(199, 121, 69, 1);
+	fill: rgba(199, 121, 69, 1);
+}
+.block-color-yellow {
+	color: rgba(175, 136, 66, 1);
+	fill: rgba(175, 136, 66, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(63, 126, 190, 1);
+	fill: rgba(63, 126, 190, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(174, 96, 133, 1);
+	fill: rgba(174, 96, 133, 1);
+}
+.block-color-red {
+	color: rgba(201, 85, 73, 1);
+	fill: rgba(201, 85, 73, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(232, 242, 250, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 99, 174, 0.172); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2701d4b8-0d39-80b4-9f0b-feb92503609f" class="page sans"><header><img class="page-cover-image" src="Summary%20Table%202701d4b80d3980b49f0bfeb92503609f/luna.png" style="object-position:center 8.57%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🌕</span></div><h1 class="page-title">Summary Table</h1><p class="page-description"></p></header><div class="page-body"><p id="2701d4b8-0d39-8008-92e8-fea447152209" class="">September 16, 2025</p><p id="2701d4b8-0d39-8055-9f54-fe81601b842e" class="block-color-gray"><strong>Ximei Xu, ximeixu79@gmail.com</strong></p><p id="2701d4b8-0d39-804f-94a2-e40bf86201f6" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="2701d4b8-0d39-804c-a372-f19d952061d5"><div style="font-size:1.5em"><span class="icon">🐣</span></div><div style="width:100%"><p id="2701d4b8-0d39-8074-a695-f5c327a2993c" class="">This blog summarizes key findings from the papers on suicidal ideation detection that I have recently read.</p></div></figure><p id="2711d4b8-0d39-8032-bfa6-d6d8749621a5" class="">The table below summarizes the papers I‘ve read.</p><table id="2701d4b8-0d39-8035-a931-e481239595b5" class="simple-table"><tbody><tr id="2701d4b8-0d39-80b9-8e0a-e546358a1ee9"><td id="SSoy" class="" style="width:169.3303680419922px">Paper (Year)</td><td id="|fbT" class="" style="width:151.3303680419922px">Reference Link</td><td id="`Aum" class="" style="width:172.3303680419922px">Main Research Question</td><td id="&gt;q{@" class="" style="width:133.00000762939453px">Approach</td><td id="&lt;sL@" class="" style="width:134.00000762939453px">Data</td></tr><tr id="2701d4b8-0d39-801c-a0e1-d0f902fbbe71"><td id="SSoy" class="" style="width:169.3303680419922px">Machine Classification and Analysis of Suicide-Related Communication on Twitter (2015)</td><td id="|fbT" class="" style="width:151.3303680419922px"><a href="https://dl.acm.org/doi/pdf/10.1145/2700171.2791023">https://dl.acm.org/doi/pdf/10.1145/2700171.2791023</a></td><td id="`Aum" class="" style="width:172.3303680419922px">To classify collected Tweets into one of the six suicide related categories including  the suicidal ideation class.</td><td id="&gt;q{@" class="" style="width:133.00000762939453px">Rotation Forest (RF)</td><td id="&lt;sL@" class="" style="width:134.00000762939453px"><strong>816</strong> Tweets (post-level)</td></tr><tr id="2701d4b8-0d39-8018-85c9-cfc47eb03e4b"><td id="SSoy" class="" style="width:169.3303680419922px">Discovering Shifts to Suicidal Ideation from Mental Health Content in Social Media (2016)</td><td id="|fbT" class="" style="width:151.3303680419922px"><a href="https://dl.acm.org/doi/pdf/10.1145/2858036.2858207">https://dl.acm.org/doi/pdf/10.1145/2858036.2858207</a></td><td id="`Aum" class="" style="width:172.3303680419922px">Is it possible to forecast whether an individual engaged in mental health discussions would, in the future, discuss suicidal ideation? </td><td id="&gt;q{@" class="" style="width:133.00000762939453px">Regularized logistic regression based binary classifiers</td><td id="&lt;sL@" class="" style="width:134.00000762939453px">Posts from reddit (<strong>880</strong> users in total) (user-level)</td></tr><tr id="2701d4b8-0d39-8054-a9cd-d932d2762190"><td id="SSoy" class="" style="width:169.3303680419922px">Natural Language Processing of Social Media as Screening for Suicide Risk (2018)</td><td id="|fbT" class="" style="width:151.3303680419922px"><a href="https://journals.sagepub.com/doi/full/10.1177/1178222618792860">https://journals.sagepub.com/doi/full/10.1177/1178222618792860</a></td><td id="`Aum" class="" style="width:172.3303680419922px">To predict whether or not the post was composed by someone who would go on to attempt suicide.</td><td id="&gt;q{@" class="" style="width:133.00000762939453px">LSTM model; Using the aggregated scores from many posts from a single user to predict the individual’s risk</td><td id="&lt;sL@" class="" style="width:134.00000762939453px">Twitter posts from 2 sources: 1 - OurDataHelps.org users; 2 - Public self-stated users (user-level)</td></tr><tr id="2711d4b8-0d39-80d2-a1ea-d07fb505a68f"><td id="SSoy" class="" style="width:169.3303680419922px">Supervised Learning for Suicidal Ideation Detection in Online User Content (2018)</td><td id="|fbT" class="" style="width:151.3303680419922px"><a href="https://onlinelibrary.wiley.com/doi/full/10.1155/2018/6157249">https://onlinelibrary.wiley.com/doi/full/10.1155/2018/6157249</a></td><td id="`Aum" class="" style="width:172.3303680419922px">To determine whether a post is with or without suicide intent.</td><td id="&gt;q{@" class="" style="width:133.00000762939453px">SVM, Random Forest, gradient boost classification tree (GBDT), XGBoost, multi-layer feed-forward neural net (MLFFNN) and LSTM.</td><td id="&lt;sL@" class="" style="width:134.00000762939453px">Posts from both Reddit and Twitter (post-level)</td></tr><tr id="2701d4b8-0d39-8077-b7ab-cbff5bc044a2"><td id="SSoy" class="" style="width:169.3303680419922px">Detection of Suicide Ideation in Social Media Forums Using Deep Learning (2019)</td><td id="|fbT" class="" style="width:151.3303680419922px"><a href="https://www.mdpi.com/1999-4893/13/1/7">https://www.mdpi.com/1999-4893/13/1/7</a></td><td id="`Aum" class="" style="width:172.3303680419922px">To explore the performance of LSTM-CNN combined class of deep neural networks for detection of suicide ideation tasks.</td><td id="&gt;q{@" class="" style="width:133.00000762939453px">LSTM-CNN combined class of deep neural networks</td><td id="&lt;sL@" class="" style="width:134.00000762939453px">Built by Ji et al. (post-level)</td></tr><tr id="2701d4b8-0d39-804c-9b87-f20038b5ed1c"><td id="SSoy" class="" style="width:169.3303680419922px">A Time-Aware Transformer Based Model for Suicide Ideation Detection on Social Media (2020)</td><td id="|fbT" class="" style="width:151.3303680419922px"><a href="https://aclanthology.org/2020.emnlp-main.619.pdf">https://aclanthology.org/2020.emnlp-main.619.pdf</a></td><td id="`Aum" class="" style="width:172.3303680419922px">To identify suicidal intent in English <strong>tweets</strong> by augmenting <strong>linguistic</strong> models with <strong>historical</strong> context.</td><td id="&gt;q{@" class="" style="width:133.00000762939453px">STATENet, a time-aware transformer based model: 1 - SentenceBERT; 2 - PlutchikTransformer; 3 - T-LSTM</td><td id="&lt;sL@" class="" style="width:134.00000762939453px">Built by Sinha et al. (post-level)</td></tr><tr id="2701d4b8-0d39-8091-a44f-f5ce1425f4a4"><td id="SSoy" class="" style="width:169.3303680419922px">Suicidal ideation and mental disorder detection with attentive relation networks (2021)</td><td id="|fbT" class="" style="width:151.3303680419922px"><a href="https://link.springer.com/article/10.1007/s00521-021-06208-y#Sec3">https://link.springer.com/article/10.1007/s00521-021-06208-y#Sec3</a></td><td id="`Aum" class="" style="width:172.3303680419922px">To identify suicidal ideation and different kinds of mental disorders for early warning on both user-level and post-level.</td><td id="&gt;q{@" class="" style="width:133.00000762939453px">An attentive RN model with text representation and two sets of risk indicators encoded.</td><td id="&lt;sL@" class="" style="width:134.00000762939453px">UMD reddit suicidality dataset (user-level); Reddit SWMH dataset (post-level); Twitter datasets collection (post-level)</td></tr></tbody></table><p id="2711d4b8-0d39-8096-a590-c69f380a6f36" class="">In summary, most of the work focus on the binary classification task about whether the post is with suicidal intent or not. Several studies are intended to classify examined posts into different categories related to suicide and mental health. There&#x27;s one work focusing on predicting whether users who have mental health issues are going to develop suicidal thoughts.</p><p id="2711d4b8-0d39-8021-9105-dc908ac427d3" class="">Regarding the level of analysis, most of the studies focus on the post level.</p><p id="2711d4b8-0d39-8024-bea7-fdfe62dedf67" class="">
+</p><p id="2711d4b8-0d39-80c3-a573-c0561fd67564" class="">The table below summarizes the datasets developed for suicide ideation detection.</p><table id="2701d4b8-0d39-804a-9d07-f11fc2182318" class="simple-table"><tbody><tr id="2701d4b8-0d39-806b-b7a5-de60987548b2"><td id="}fXs" class="" style="width:123.33036804199219px">Paper (Year)</td><td id="Jt;}" class="" style="width:92.00000762939453px">Reference Link</td><td id="BKSO" class="" style="width:71.33036041259766px">Dataset Name</td><td id="X}ml" class="" style="width:112.33036041259766px">Source Platform</td><td id="VJFZ" class="" style="width:123.00000762939453px">Size</td><td id="wFji" class="" style="width:119.00000762939453px">Labels</td><td id="X|LB" class="" style="width:119.00000762939453px">Annotation</td><td id="P^oe" class="">Level</td><td id="lRjt" class="">Time period </td></tr><tr id="2701d4b8-0d39-8042-8f9e-f3322443a77d"><td id="}fXs" class="" style="width:123.33036804199219px">Machine Classification and Analysis of Suicide-Related Communication on Twitter (2015)</td><td id="Jt;}" class="" style="width:92.00000762939453px"><a href="https://dl.acm.org/doi/pdf/10.1145/2700171.2791023">https://dl.acm.org/doi/pdf/10.1145/2700171.2791023</a></td><td id="BKSO" class="" style="width:71.33036041259766px">NA</td><td id="X}ml" class="" style="width:112.33036041259766px">Twitter: 1 - using designed search terms; 2 - using the name and surname of the deceased</td><td id="VJFZ" class="" style="width:123.00000762939453px"><strong>816</strong> Tweets</td><td id="wFji" class="" style="width:119.00000762939453px">7 classes: the six suicide related categories and None of the above </td><td id="X|LB" class="" style="width:119.00000762939453px">Using the crowd-sourcing online service Crowdflower.</td><td id="P^oe" class="">Post-level</td><td id="lRjt" class="">A continuous period of <strong>six</strong> weeks from <strong>1st February 2014</strong></td></tr><tr id="2701d4b8-0d39-80cd-9cb4-fec6c0cc5771"><td id="}fXs" class="" style="width:123.33036804199219px">Discovering Shifts to Suicidal Ideation from Mental Health Content in Social Media (2016)</td><td id="Jt;}" class="" style="width:92.00000762939453px"><a href="https://dl.acm.org/doi/pdf/10.1145/2858036.2858207">https://dl.acm.org/doi/pdf/10.1145/2858036.2858207</a></td><td id="BKSO" class="" style="width:71.33036041259766px">NA</td><td id="X}ml" class="" style="width:112.33036041259766px">Reddit: 1 - mental health subreddits; 2 - subreddit “r/SuicideWatch”</td><td id="VJFZ" class="" style="width:123.00000762939453px">13,049 posts and 101,035 comments from 880 users in total</td><td id="wFji" class="" style="width:119.00000762939453px">2 classes: MH (mental health)→SW (SuicideWatch) or MH</td><td id="X|LB" class="" style="width:119.00000762939453px">NA</td><td id="P^oe" class="">User-level</td><td id="lRjt" class="">From February 11 through November 11 2014</td></tr><tr id="2711d4b8-0d39-80ce-8e37-ea922d89d213"><td id="}fXs" class="" style="width:123.33036804199219px">University of Maryland Suicidality dataset (UMD) (2018)</td><td id="Jt;}" class="" style="width:92.00000762939453px"><a href="https://aclanthology.org/W18-0603.pdf">https://aclanthology.org/W18-0603.pdf</a></td><td id="BKSO" class="" style="width:71.33036041259766px"><strong>UMD</strong></td><td id="X}ml" class="" style="width:112.33036041259766px">Reddit: 1 - SuicideWatch posts and all Reddit posts from target population; 2 - posts from the control users</td><td id="VJFZ" class="" style="width:123.00000762939453px">1868 users in total</td><td id="wFji" class="" style="width:119.00000762939453px">1 - 4 classes: No Risk (or “None”), Low Risk, Moderate Risk and Severe Risk; 2 - 2 classes: positive (at-risk) versus control</td><td id="X|LB" class="" style="width:119.00000762939453px">Expert Annotation and Crowdsourced Annotation</td><td id="P^oe" class="">User-level</td><td id="lRjt" class="">From <strong>January 1, 2008</strong> through <strong>August 31, 2015</strong>, with partial data from 2006-2007.</td></tr><tr id="2711d4b8-0d39-8058-a10c-d232173bf10b"><td id="}fXs" class="" style="width:123.33036804199219px">Supervised Learning for Suicidal Ideation Detection in Online User Content (2018)</td><td id="Jt;}" class="" style="width:92.00000762939453px"><a href="https://onlinelibrary.wiley.com/doi/full/10.1155/2018/6157249">https://onlinelibrary.wiley.com/doi/full/10.1155/2018/6157249</a></td><td id="BKSO" class="" style="width:71.33036041259766px">NA</td><td id="X}ml" class="" style="width:112.33036041259766px">Reddit: 1 - posts from <strong>SuicideWatch</strong> and from <strong>popular posts</strong> in Reddit; 2 - <strong>six</strong> subreddits that include <strong>SuicideWatch</strong> and another five hot topics. Twitter: using a <strong>keyword filtering</strong> technique.</td><td id="VJFZ" class="" style="width:123.00000762939453px">Reddit: <strong>3549</strong> suicidal ideation samples and a number of nonsuicide texts. Twitter: <strong>10,288</strong> tweets with <strong>594</strong> tweets (around <strong>6%</strong>) with suicidal ideation.</td><td id="wFji" class="" style="width:119.00000762939453px">2 classes: posts with or without suicide intent.</td><td id="X|LB" class="" style="width:119.00000762939453px">Reddit: NA; Twitter: manually checked and labeled by the authors</td><td id="P^oe" class="">Post-level</td><td id="lRjt" class="">NA</td></tr><tr id="2711d4b8-0d39-8023-9598-c7fe766c1e8c"><td id="}fXs" class="" style="width:123.33036804199219px">Natural Language Processing of Social Media as Screening for Suicide Risk (2018)</td><td id="Jt;}" class="" style="width:92.00000762939453px"><a href="https://journals.sagepub.com/doi/full/10.1177/1178222618792860">https://journals.sagepub.com/doi/full/10.1177/1178222618792860</a></td><td id="BKSO" class="" style="width:71.33036041259766px">NA</td><td id="X}ml" class="" style="width:112.33036041259766px">Twitter: 1 - Public self-stated data; 2 - using data donated through OurDataHelps.org.</td><td id="VJFZ" class="" style="width:123.00000762939453px"><strong>836</strong> users with a total of <strong>395 230</strong> posts.</td><td id="wFji" class="" style="width:119.00000762939453px">2 classes: people who’ll commit suicide versus control</td><td id="X|LB" class="" style="width:119.00000762939453px">Manually labeled by the authors</td><td id="P^oe" class="">User-level</td><td id="lRjt" class=""><strong>6 months</strong> of posts prior to their suicide attempt.</td></tr><tr id="2711d4b8-0d39-8045-ae70-f6940b5cccac"><td id="}fXs" class="" style="width:123.33036804199219px">#suicidal- A Multipronged Approach to Identify and Explore Suicidal Ideation in Twitter (2019)</td><td id="Jt;}" class="" style="width:92.00000762939453px"><a href="https://dl.acm.org/doi/pdf/10.1145/3357384.3358060">https://dl.acm.org/doi/pdf/10.1145/3357384.3358060</a></td><td id="BKSO" class="" style="width:71.33036041259766px">NA</td><td id="X}ml" class="" style="width:112.33036041259766px">Twitter: using generated lexicon to collect tweets and then collect the tweet timeline for each users.</td><td id="VJFZ" class="" style="width:123.00000762939453px"><strong>3,984</strong> suicidal tweets (<strong>11.61</strong>% of the entire dataset).</td><td id="wFji" class="" style="width:119.00000762939453px">2 classes: Suicidal Intent Present and Suicidal Intent Absent</td><td id="X|LB" class="" style="width:119.00000762939453px">Two students of clinical psychology supervised by a practising clinical psychologist</td><td id="P^oe" class=""> Post-level</td><td id="lRjt" class="">NA</td></tr></tbody></table><p id="2711d4b8-0d39-80cf-9aa3-d182c55fe170" class="">In summary, the datasets developed for this task consist of posts collected from Reddit and/or Twitter. Most of them are designed for binary classification problems: determining whether a post expresses suicidal intent or whether the individual is at risk of attempting suicide. </p><p id="2711d4b8-0d39-80e5-97cc-d407c42802ef" class="">The remaining three studies differ from the works above. One aims to classify examined posts into categories related to suicide; another focuses on predicting whether users with mental health issues are at risk of developing suicidal thoughts; and the last categorizes suicide risk into four classes while also identifying individuals who had not previously been recognized as at risk.</p><p id="2711d4b8-0d39-80e7-8e24-f1c1d5e76002" class="">Regarding the level of analysis, half of the studies focus on the post level, while the others focus on the user level.</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
